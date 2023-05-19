@@ -17,11 +17,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
+            'nik' => fake()->nik(),
+            'division_id' => fake()->numberBetween(1,3),
+            'role' => fake()->randomElement(['admin', 'staff']),
             'name' => fake()->name(),
+            'position' => fake()->randomElement(['Backend Developer', 'Frontend Developer', 'System Analyst', 'QA Enggineer', 'Busines Analyst', 'Project Manager', 'Technical Lead']),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' =>  bcrypt('password'),
             'remember_token' => Str::random(10),
         ];
     }

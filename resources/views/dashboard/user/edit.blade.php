@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Edit Profile')
+@section('title', 'Edit Employee')
 
 @section('content')
 <div id="main">
@@ -12,63 +12,43 @@
     <div class="page-heading">
         <div class="page-title">
             <div class="row mb-3">
-                <div class="col-12 col-md-6 order-md-2 order-last">
-
-                </div>
                 <div class="col-12 col-md-6 order-md-1 order-first">
-                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Profile Setting</li>
+                            <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Employees</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Employee</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
 
-        <!-- // Basic multiple Column Form section start -->
         <section id="multiple-column-form">
             <div class="row match-height">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6 order-md-2">
-                                    <div class="avatar avatar-lg float-end">
-                                        <div class="ms-3 name d-none d-sm-block">
-
-                                            @if ($user->image)
-                                            <img src="{{ asset('storage/' . $user->image) }}" alt="Face 1" class="profile">
-                                            @else
-                                            <img src="{{ url('assets/images/faces/1.jpg') }}" alt="Face 1">
-                                            @endif
-                                            <span class="ms-2">{{ Auth::user()->name }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 order-md-1">
-                                    <h4 class="card-title">Edit Profile</h4>
+                                <div class="col-12 col-md-6 order-md-1">
+                                    <h4 class="card-title">{{ $title . ' ' . $user->name}}</h4>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-content">
+                        <div class="card-content"></div>
                             <div class="card-body">
 
-                                <form class="form" id="form-update" action="{{ route('profile.update') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form class="form" action="{{ route('users.update', [$user->id]) }}" method="POST">
+                                    @method('PUT')
                                     @csrf
-                                    @method('patch')
 
                                     <div class="row">
-                                        <p>User Information</p>
-
                                         <div class="col-md-6 col-12 mt-3">
                                             <div class="form-group">
                                                 <label for="NIK" class="mb-2">NIK</label>
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('nik') is-invalid @enderror"
-                                                    placeholder="Your Employee ID" name="nik"
-                                                    value="{{ old('nik', $user->nik) }}" readonly>
+                                                    placeholder="Employee ID" name="nik"
+                                                    value="{{ old('nik', $user->nik) }}">
 
                                                 @error('nik')
                                                 <div class="invalid-feedback">
@@ -84,7 +64,7 @@
                                                 <input type="email"
                                                     class="form-control form-control-lg @error('email') is-invalid @enderror"
                                                     placeholder="your@mail.com" name="email"
-                                                    value="{{ old('email', $user->email) }}" readonly>
+                                                    value="{{ old('email', $user->email) }}">
 
                                                 @error('email')
                                                 <div class="invalid-feedback">
@@ -100,7 +80,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('name') is-invalid @enderror"
                                                     placeholder="Fullname" name="name"
-                                                    value="{{ old('name', $user->name ?? '') }}">
+                                                    value="{{ old('name', $user->name) }}">
 
                                                 @error('name')
                                                 <div class="invalid-feedback">
@@ -116,7 +96,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('position') is-invalid @enderror"
                                                     placeholder="Your Position" name="position"
-                                                    value="{{ old('position', $user->position ?? '') }}">
+                                                    value="{{ old('position', $user->position) }}">
 
                                                 @error('position')
                                                 <div class="invalid-feedback">
@@ -153,12 +133,11 @@
                                             <div class="form-group @error('division_id') is-invalid @enderror">
                                                 <select class="choices form-select" name="division_id">
                                                     <option value="" selected @readonly(true)>Choose Division</option>
-
-                                                    @foreach ($division as $division)
-                                                    <option value="{{ $division->id }}" {{ old('division_id', $user->
-                                                        division_id) == $division->id ?
-                                                        'selected' : '' }}>{{ $division->name }}</option>
-                                                    @endforeach
+                                                        @foreach ($divisions as $division)
+                                                        <option value="{{ $division->id }}" {{ old('division_id', $user->
+                                                            division_id) == $division->id ?
+                                                            'selected' : '' }}>{{ $division->name }}</option>
+                                                        @endforeach
                                                 </select>
 
                                                 @error('division_id')
@@ -176,7 +155,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('phone') is-invalid @enderror"
                                                     name="phone" placeholder="Your Number"
-                                                    value="{{ old('phone', $user->phone ?? '') }}">
+                                                    value="{{ old('phone', $user->phone) }}">
 
                                                 @error('phone')
                                                 <div class="invalid-feedback">
@@ -188,18 +167,27 @@
 
                                         <div class="col-md-6 col-12 mt-3">
                                             <div class="form-group">
-                                                {{-- <label for="image" class="mb-2">Photo</label>
-                                                <input type="file"
-                                                    class="form-control form-control-lg imgbb-filepond @error('image') is-invalid @enderror"
-                                                    name="image"> --}}
+                                                <label for="password" class="mb-2">Password</label>
+                                                <input type="password"
+                                                    class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                                    name="password" placeholder="Password">
 
-                                                <label for="formFileLg" class="form-label mb-2">Photo</label>
-                                                <input class="form-control form-control-lg" id="formFileLg" type="file"
-                                                    name="image">
+                                                @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                                <input type="hidden" name="oldImage" value="{{ $user->image ?? '' }}">
+                                        <div class="col-md-6 col-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="password_confirmation" class="mb-2">Password Confirmation</label>
+                                                <input type="password"
+                                                    class="form-control form-control-lg @error('password_confirmation') is-invalid @enderror"
+                                                    name="password_confirmation" placeholder="Password Confirmation">
 
-                                                @error('image')
+                                                @error('password_confirmation')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -218,7 +206,6 @@
                 </div>
             </div>
         </section>
-        <!-- // Basic multiple Column Form section end -->
     </div>
 
     @include('includes.footer')

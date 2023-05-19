@@ -47,6 +47,7 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
+                @can('admin')
                 <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -54,19 +55,21 @@
                     </a>
                 </li>
 
+                
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="component-alert.html">Users</a>
+                    
+                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}">Employees</a>
                         </li>
-                        <li class="submenu-item ">
+                        {{-- <li class="submenu-item {{ request()->routeIs('division*') ? 'active' : '' }}">
                             <i class="bi bi-building-fill-gear"></i>
-                            <a href="component-badge.html">Departments</a>
-                        </li>
+                            <a href="{{ route('divisions.index') }}">Divisions</a>
+                        </li> --}}
                         <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Vendors</a>
                         </li>
@@ -75,6 +78,7 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
  
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
