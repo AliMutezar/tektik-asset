@@ -62,6 +62,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function division(): BelongsTo
     {
-        return $this->belongsTo(Division::class, 'division_id');
+        return $this->belongsTo(Division::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DivisionController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('divisions', DivisionController::class);
     Route::resource('users', UserController::class);
+    Route::resource('vendors', VendorController::class);
 });
 
 require __DIR__.'/auth.php';

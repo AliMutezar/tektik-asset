@@ -70,8 +70,8 @@
                             <i class="bi bi-building-fill-gear"></i>
                             <a href="{{ route('divisions.index') }}">Divisions</a>
                         </li> --}}
-                        <li class="submenu-item ">
-                            <a href="component-breadcrumb.html">Vendors</a>
+                        <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
+                            <a href="{{ route('vendors.index') }}">Vendors</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="component-button.html">Asset</a>

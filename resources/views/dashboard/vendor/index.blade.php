@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'User')
+@section('title', 'Vendor')
 
 @section('content')
 <div id="main">
@@ -16,7 +16,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item active" aria-current="page">Master Data</li>
-                            <li class="breadcrumb-item active" aria-current="page">Employee</li>
+                            <li class="breadcrumb-item active" aria-current="page">Vendor</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,9 +30,7 @@
                     <div class="col-sm-6 col-md-12 d-flex justify-content-between">
                         {{ $title }}
 
-                        <a href="{{ route('users.create') }}"
-                            class="btn icon icon-left btn-primary btn-sm d-flex align-items-center"><i
-                                data-feather="user-plus" class="me-2"></i> Add Employee</a>
+                        <a href="{{ route('vendors.create') }}" class="btn icon icon-left btn-primary btn-sm d-flex align-items-center"><i data-feather="plus" class="me-2"></i> Add Vendor</a>
                     </div>
                 </div>
                 <div class="card-body mt-3">
@@ -40,43 +38,43 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>NIK</th>
-                                <th>Division</th>
-                                <th>Role</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>Company</th>
+                                <th>PIC</th>
                                 <th>Phone</th>
+                                <th>Adress</th>
+                                <th>Province</th>
+                                <th>City</th>
+                                <th>District</th>
+                                <th>Village</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($vendors as $vendor)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->nik }}</td>
-                                <td>{{ $user->division->name }}</td>
-                                <td>{{ $user->role }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
+                                <td>{{ $vendor->company_name }}</td>
+                                <td>{{ $vendor->pic }}</td>
+                                <td>{{ $vendor->phone }}</td>
+                                <td>{{ $vendor->address }}</td>
+                                <td>{{ $vendor->province->name ?? ''}}</td>
+                                <td>{{ $vendor->city->name ?? ''}}</td>
+                                <td>{{ $vendor->district->name ?? '' }}</td>
+                                <td>{{ $vendor->village->name ?? '' }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="icon me-3"><i
-                                                class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
-                                        <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST"
-                                            id="deleteForm{{ $user->id }}">
+                                        <a href="{{ route('vendors.edit', ['vendor' => $vendor->id]) }}" class="icon me-3"><i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
+                                        <form action="{{ route('vendors.destroy', ['vendor' => $vendor->id]) }}" method="POST" id="deleteForm{{ $vendor->id }}">
                                             @csrf
                                             @method('DELETE')
-
-                                            <a href="#" class="icon text-danger"
-                                                onclick="confirmDelete(event, '{{ $user->id }}')"><i class="bi bi-x"
-                                                    style="font-size: 1.2rem;"></i></a>
+                                            
+                                            <a href="#" class="icon text-danger" onclick="confirmDelete(event, '{{ $vendor->id }}')"><i class="bi bi-x" style="font-size: 1.2rem;"></i></a>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
-
+                            
                         </tbody>
                     </table>
                 </div>
