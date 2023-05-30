@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-content"></div>
+                        <div class="card-content">
                             <div class="card-body">
 
                                 <form class="form" action="{{ route('users.update', [$user->id]) }}" method="POST">
@@ -48,7 +48,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('nik') is-invalid @enderror"
                                                     placeholder="Employee ID" name="nik"
-                                                    value="{{ old('nik', $user->nik) }}">
+                                                    value="{{ old('nik', $user->nik ?? '') }}">
 
                                                 @error('nik')
                                                 <div class="invalid-feedback">
@@ -64,7 +64,7 @@
                                                 <input type="email"
                                                     class="form-control form-control-lg @error('email') is-invalid @enderror"
                                                     placeholder="your@mail.com" name="email"
-                                                    value="{{ old('email', $user->email) }}">
+                                                    value="{{ old('email', $user->email ?? '') }}">
 
                                                 @error('email')
                                                 <div class="invalid-feedback">
@@ -80,7 +80,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('name') is-invalid @enderror"
                                                     placeholder="Fullname" name="name"
-                                                    value="{{ old('name', $user->name) }}">
+                                                    value="{{ old('name', $user->name ?? '') }}">
 
                                                 @error('name')
                                                 <div class="invalid-feedback">
@@ -96,7 +96,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('position') is-invalid @enderror"
                                                     placeholder="Your Position" name="position"
-                                                    value="{{ old('position', $user->position) }}">
+                                                    value="{{ old('position', $user->position ?? '') }}">
 
                                                 @error('position')
                                                 <div class="invalid-feedback">

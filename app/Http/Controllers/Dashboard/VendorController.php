@@ -7,6 +7,12 @@ use App\Models\Vendor;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 class VendorController extends Controller
 {
@@ -23,17 +29,30 @@ class VendorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $title = 'Add Vendor';
+        $provinces = Province::all();
+        $cities = City::all();
+        $districts = District::all();
+        $villages = Village::all();
+
+        return view('dashboard.vendor.create', compact('title', 'provinces', 'cities', 'districts', 'villages'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVendorRequest $request)
+    public function store(StoreVendorRequest $request, Vendor $vendor): RedirectResponse
     {
-        //
+        $data = $request->all();
+
+        // Kalo mau dd, jangan pake form request
+        // dd($data);
+
+        Vendor::create($data);
+        return redirect()->route('vendors.index')->with('success', 'Data vendor has been inserted successfully');
+
     }
 
     /**
@@ -49,15 +68,26 @@ class VendorController extends Controller
      */
     public function edit(Vendor $vendor)
     {
-        //
+        $title = 'Edit Vendor';
+        $vendor = Vendor::where('id', $vendor->id)->first();
+        $provinces = Province::all();
+        $cities = City::all();
+        $districts = District::all();
+        $villages = Village::all();
+
+        return view('dashboard.vendor.edit', compact('vendor','title', 'provinces', 'cities', 'villages'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVendorRequest $request, Vendor $vendor)
+    public function update(StoreVendorRequest $request, Vendor $vendor)
     {
-        //
+        $data = $request->validated();
+        $vendor_name = $vendor->company_name;
+        $vendor->update($data);
+
+        return redirect()->back()->with('success', $vendor_name . 'vendor has been updated successfully');
     }
 
     /**
@@ -65,6 +95,10 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        //
+        $vendor = Vendor::findOrFail($vendor->id);
+        $vendor_name = $vendor->company_name;
+        $vendor->delete();
+
+        return redirect()->route('vendors.index')->with('success', 'Data ' . $vendor_name . 'has been deleted successfully');
     }
 }

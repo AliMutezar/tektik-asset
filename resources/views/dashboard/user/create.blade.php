@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-content"></div>
+                        <div class="card-content">
                             <div class="card-body">
 
                                 <form class="form" action="{{ route('users.store') }}" method="POST">

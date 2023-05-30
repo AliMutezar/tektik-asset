@@ -3,6 +3,9 @@
 use App\Http\Controllers\Dashboard\DivisionController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\Location\CityController;
+use App\Http\Controllers\Location\DistrictController;
+use App\Http\Controllers\Location\VillageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -35,5 +38,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
 });
+
+// Indonesia location
+Route::get('/cities/{province}', [CityController::class, 'getCityByProvince']);
+Route::get('/districts/{city}', [DistrictController::class, 'getDistrictByCity']);
+Route::get('/villages/{district}', [VillageController::class, 'getVillageByDistrict']);
+
 
 require __DIR__.'/auth.php';

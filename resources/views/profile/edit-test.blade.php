@@ -32,7 +32,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="row">
+                            <div class="row d-flex align-items-center">
                                 <div class="col-md-6 order-md-2">
                                     <div class="avatar avatar-lg float-end">
                                         <div class="ms-3 name d-none d-sm-block">
