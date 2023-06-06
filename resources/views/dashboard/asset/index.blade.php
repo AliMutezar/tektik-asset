@@ -49,6 +49,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody></tbody>
                         <tfoot>
                             <th></th>
                             <th>Vendor</th>
@@ -84,8 +85,9 @@
             scrollX:true,
             processing:true,
             serverSide:true,
-            stateSave:true,
             ajax: '{{ route('assets.index') }}',
+
+            // menambahkan kolom sesuai dengan kolom tabel, dan eberapa kolom seperti no, condition, price di custom 
             columns: [
                 { 
                     data: null,
@@ -142,6 +144,7 @@
                     .every(function() {
                         var that = this;
                         $('input', this.footer()).on('keyup change clear', function () {
+                            // console.log("ini that " + that.search() + " " + " ini this " + this.value);
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }

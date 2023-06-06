@@ -56,7 +56,7 @@
                 </li>
 
                 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
