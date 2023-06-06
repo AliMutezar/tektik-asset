@@ -4,8 +4,8 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ url('assets/images/logo/tektik.png') }}" style="height: 2.5rem; width: auto;" alt="Logo">
-                        <span>Assets</span>
+                    <a href="index.html"><img src="{{ url('assets/images/logo/tektik-full.png') }}" style="height: 2.5rem; width: auto;" alt="Logo">
+                    
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -73,8 +73,8 @@
                         <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
                             <a href="{{ route('vendors.index') }}">Vendors</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="component-button.html">Asset</a>
+                        <li class="submenu-item {{ request()->routeIs('assets*') ? 'active' : '' }}">
+                            <a href="{{ route('assets.index') }}">Asset</a>
                         </li>
                     </ul>
                 </li>

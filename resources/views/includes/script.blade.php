@@ -21,10 +21,13 @@
 <script src="{{ url('assets/extensions/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 
+{{-- Numeral JS --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 <script>
-$(document).ready(function () {
-    $('#data-table').DataTable({
-        scrollX:true,
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            scrollX: true,
+        });
     });
-});
 </script>

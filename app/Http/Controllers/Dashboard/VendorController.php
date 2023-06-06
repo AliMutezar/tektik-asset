@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
 use App\Http\Requests\StoreVendorRequest;
-use App\Http\Requests\UpdateVendorRequest;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
@@ -22,7 +21,7 @@ class VendorController extends Controller
     public function index(): View
     {
         $vendors = Vendor::all();
-        $title = 'Data Vendor';
+        $title = 'Data Vendors';
         return view('dashboard.vendor.index', compact(['vendors', 'title']));
     }
 
@@ -43,7 +42,7 @@ class VendorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVendorRequest $request, Vendor $vendor): RedirectResponse
+    public function store(StoreVendorRequest $request): RedirectResponse
     {
         $data = $request->all();
 
@@ -66,7 +65,7 @@ class VendorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vendor $vendor)
+    public function edit(Vendor $vendor): View
     {
         $title = 'Edit Vendor';
         $vendor = Vendor::where('id', $vendor->id)->first();

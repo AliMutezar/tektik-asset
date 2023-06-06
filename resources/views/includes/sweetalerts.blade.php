@@ -1,14 +1,14 @@
 @if ($errors->any())
 <script>
     Swal.fire({
-        'toast': true,
-        'title' : 'Opps!',
-        'text' : 'Something went wrong',
-        'icon' : 'error',
-        'position' : 'top-end',
+        toast: true,
+        title : 'Opps!',
+        text : 'Something went wrong',
+        icon : 'error',
+        position : 'top-end',
         showConfirmButton: false,
-        'timerProgressBar': true,
-        'timer': 3000
+        timerProgressBar: true,
+        timer: 3000
     });
 </script>
 @endif
@@ -33,8 +33,8 @@
         event.preventDefault();
         
         Swal.fire({
-            title: 'Are you sure?',
-            text: "This user will be permanently deleted!",
+            title: 'Want to delete this data?',
+            text: "All data related to this data will also be deteled",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#fff',

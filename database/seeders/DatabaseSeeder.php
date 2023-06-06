@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             VillagesSeeder::class,
             DivisionSeeder::class,
             VendorSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            AssetSeeder::class
         ]);
     }
 }

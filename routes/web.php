@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AssetController;
 use App\Http\Controllers\Dashboard\DivisionController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('divisions', DivisionController::class);
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
+    Route::resource('assets', AssetController::class);
 });
 
 // Indonesia location

@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index(): View
     {
         $users = User::all();
-        $title = 'Data Employee';
+        $title = 'Data Employees';
         return view('dashboard.user.index', compact(['users', 'title']));
     }
 
@@ -37,7 +37,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request, User $user): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {  
         $data = $request->all();
         $data['email_verified_at'] = now();
