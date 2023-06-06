@@ -5,3 +5,13 @@
 .swall-confirm-button {
     color: #dc3545 !important;
 }
+
+td.highlight {
+    background-color: #ebebeb !important;
+}
+
+tfoot.input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}

@@ -42,7 +42,7 @@
                                 <th>No</th>
                                 <th>Vendor</th>
                                 <th>Asset</th>
-                                <th>Serial Number</th>
+                                <th>No. Serial</th>
                                 <th>Condition</th>
                                 <th>Price</th>
                                 <th>Stock</th>
@@ -50,14 +50,14 @@
                             </tr>
                         </thead>
                         <tfoot>
-                            <th>No</th>
+                            <th></th>
                             <th>Vendor</th>
                             <th>Asset</th>
-                            <th>Serial Number</th>
+                            <th>No. Serial</th>
                             <th>Condition</th>
                             <th>Price</th>
                             <th>Stock</th>
-                            <th>Action</th>
+                            <th></th>
                         </tfoot>
                     </table>
                 </div>
@@ -74,10 +74,17 @@
 @push('after-script')
 <script>
     $(document).ready(function () {
-        $('#asset-table').DataTable({
+        // set up text input to each footer cell
+        $('#asset-table tfoot th:not(:first-child, :last-child)').each(function () {
+            var title = $(this).text();
+            $(this).html(' <input type="text" class="form-control" style="width: 150px;" placeholder="Search ' + title + '" />');
+        });
+
+        var table = $('#asset-table').DataTable({
             scrollX:true,
             processing:true,
             serverSide:true,
+            stateSave:true,
             ajax: '{{ route('assets.index') }}',
             columns: [
                 { 
@@ -89,7 +96,7 @@
     
                 { data: 'vendor.company_name', name: 'vendor.company_name' },
                 { data: 'asset_name', name: 'asset_name' },
-                { data: 'serial_number', name: 'serial_number' },
+                { data: 'serial_number', name: 'serial_number', className: 'text-center'},
 
                 { 
                     data: 'condition', name: 'condition',
@@ -116,18 +123,45 @@
                     }
                 },
 
-                { data: 'stock_unit', name: 'stock_unit' },
+                { data: 'stock_unit', name: 'stock_unit', className: 'text-center' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
-    
+
             // agar nomor pada page berikutnya melanjutkan nomor terakhir pada page sebelumnya
             "drawCallback": function(settings) {
                 var api = this.api();
                 api.columns(0).nodes().each(function(cell, i) {
                     cell.innerHTML =  i + 1;
                 });
-            }
+            },
+
+            initComplete: function() {
+                // Apply search
+                this.api()
+                    .columns()
+                    .every(function() {
+                        var that = this;
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
         });
+
+
+        // Hover column
+        // $('#asset-table tbody').on('mouseenter', 'td', function() {
+        //     var colIdx = table.cell(this).index().column;
+        
+        //     $(table.cells().nodes()).removeClass('highlight');
+        //     $(table.column(colIdx).nodes()).addClass('highlight');
+        // }).on('mouseleave', function() {
+        //     $(table.cells().nodes()).removeClass('highlight')
+        // });
+    
+
     
         $('#asset-table').on('click', '.delete-btn', function (e) {
             e.preventDefault();
