@@ -85,6 +85,9 @@
             scrollX:true,
             processing:true,
             serverSide:true,
+            language: {
+                processing: '<img src="assets/images/svg-loaders/puff.svg" class="me-4" style="width: 3rem" alt="audio">'
+            },
             ajax: '{{ route('assets.index') }}',
 
             // menambahkan kolom sesuai dengan kolom tabel, dan eberapa kolom seperti no, condition, price di custom 

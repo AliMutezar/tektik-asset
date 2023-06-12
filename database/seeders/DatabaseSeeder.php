@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
             DivisionSeeder::class,
             VendorSeeder::class,
             UserSeeder::class,
-            AssetSeeder::class
+            AssetSeeder::class,
+            LoanSeeder::class,
+            AssetLoanSeeder::class
         ]);
     }
 }

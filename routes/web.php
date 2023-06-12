@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AssetController;
 use App\Http\Controllers\Dashboard\DivisionController;
+use App\Http\Controllers\Dashboard\LoanController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Location\CityController;
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
     Route::resource('assets', AssetController::class);
+    Route::resource('loans', LoanController::class);
 });
 
 // Indonesia location

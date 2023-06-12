@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -63,5 +64,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function division(): BelongsTo
     {
         return $this->belongsTo(Division::class);
+    }
+
+
+    public function loans(): HasMany
+    {
+        return $this->hasMany(Loan::class, 'loan_user_id');
+    }
+
+    public function admin_loans(): HasMany
+    {
+        return $this->hasMany(Loan::class, 'admin_user_id');
     }
 }

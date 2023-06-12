@@ -80,14 +80,14 @@
                 </li>
                 @endcan
  
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item {{ request()->routeIs('loans*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-text-fill"></i>
                         <span>Asset Formulir</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="component-alert.html">Loan Form</a>
+                    <ul class="submenu {{ request()->routeIs('loans*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->routeIs('loans*') ? 'active' : '' }}">
+                            <a href="{{ route('loans.index') }}">Loan Form</a>
                         </li>
                         <li class="submenu-item ">
                             <i class="bi bi-building-fill-gear"></i>

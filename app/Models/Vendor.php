@@ -30,7 +30,7 @@ class Vendor extends Model
 
     public function assets(): HasMany
     {
-        return $this->hasMany(Assets::class);
+        return $this->hasMany(Asset::class);
     }
 
     public function province(): BelongsTo
