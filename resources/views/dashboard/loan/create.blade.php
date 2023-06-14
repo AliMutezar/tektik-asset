@@ -37,7 +37,8 @@
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form class="form" action="{{ route('loans.store') }}" method="POST" enctype="multipart/form-data">
+                                <form class="form" action="{{ route('loans.store') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row mb-4">
@@ -45,7 +46,7 @@
                                             <div class="form-group">
                                                 <label for="loan_code" class="mb-2">Loan Code</label>
                                                 <input type="text"
-                                                    class="form-control @error('loan_code') is-invalid @enderror"
+                                                    class="form-control form-control-lg @error('loan_code') is-invalid @enderror"
                                                     placeholder="loan-####" name="loan_code"
                                                     value="{{ old('loan_code') }}">
 
@@ -58,15 +59,40 @@
                                         </div>
 
                                         <div class="col-md-6 col-12 mt-3">
+                                            <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
+                                            <div class="form-group @error('loan_user_id') is-invalid @enderror">
+                                                <select class="form-select choices" name="loan_user_id" id="user">
+                                                    <option value="" disabled>Select Asset</option>
+
+                                                    @foreach ($users as $employee)
+
+                                                    <option value="{{ $employee->id}}">{{ $employee->user->name . ' - '
+                                                        . $employee-> user->division->name}}</option>
+
+                                                    @endforeach
+
+                                                </select>
+                                                @error('asset_id')
+                                                <div class="invalid-feedback" style="display: block;">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-12 mt-3">
                                             <label for="asset" class="mb-2">Asset</label>
                                             <div class="form-group @error('asset_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="asset_id" id="asset">
+                                                <select class="form-select choices" name="asset_id[]" id="assets">
                                                     <option value="" disabled>Select Asset</option>
 
                                                     @foreach ($assets as $asset)
-                                                        
-                                                        <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->vendor->company_name}}</option>
-                                                    
+
+                                                    <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' .
+                                                        $asset->vendor->company_name}}</option>
+
                                                     @endforeach
 
                                                 </select>
@@ -78,9 +104,43 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 d-grid gap-2 mt-3 d-md-block">
-                                            <button type="submit" class="btn btn-primary me-1">Save</button>
+                                        <div class="col-md-6 col-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="unit_borrowed" class="mb-2">Units</label>
+                                                <input type="number"
+                                                    class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
+                                                    placeholder="Total Borrowed" name="unit_borrowed[]" min=0
+                                                    id="unit_borrowed" value="{{ old('unit_borrowed') }}">
+
+                                                @error('unit_borrowed')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
                                         </div>
+
+                                        <div class="col-md-6 col-12" id="newAssetRow"></div>
+                                        <div class="col-md-6 col-12" id="newUnitRow"></div>
+
+                                        <div class="col-md-4 col-12 mt-3 d-flex gap-3">
+                                            <a href="#"
+                                                class="btn text-center icon icon-left btn-primary btn-sm d-flex align-items-center justify-content-center"
+                                                id="addAsset">
+                                                <i data-feather="plus" class="me-2"></i> Add Asset
+                                            </a>
+                                            <div id="deleteAssetContainer" style="display: none;">
+                                                <a href="#"
+                                                    class="btn text-center icon icon-left btn-outline-danger btn-sm d-flex align-items-center justify-content-center"
+                                                    id="deleteAsset">
+                                                    <i data-feather="x" class="me-2"></i> Delete Asset
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-grid gap-2 mt-3 d-md-block mt-5">
+                                        <button type="submit" class="btn btn-primary me-1">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -94,3 +154,93 @@
     @include('includes.footer')
 </div>
 @endsection
+
+@push('after-script')
+<script>
+    var incrementalId = 2;
+    $(document).ready(function () {
+        $('#addAsset').click(function () {
+            // console.log("test tombol");
+            var newRowAsset = '';
+            newRowAsset += `
+            <div class="form-group @error('asset_id') is-invalid @enderror" id="rowAsset${incrementalId}">
+                <label for="asset" class="mb-2">Asset ${incrementalId}</label>
+                    <select class="form-select choices" name="asset_id[]" id="newAssets${incrementalId}">
+                        <option value="" disabled>Select Asset</option>
+
+                        @foreach ($assets as $asset)
+                            
+                            <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->vendor->company_name}}</option>
+                        
+                        @endforeach
+
+                    </select>
+                    @error('asset_id')
+                    <div class="invalid-feedback" style="display: block;">
+                        {{ $message }}
+                    </div>
+                    @enderror
+            </div>`;
+
+            $('#newAssetRow').append(newRowAsset);
+
+            var newRowUnit = '';
+            newRowUnit += `
+                <div class="form-group" id="rowUnit${incrementalId}">
+                    <label for="unit_borrowed" class="mb-2">Units ${incrementalId}</label>
+                    <input type="number"
+                        class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
+                        placeholder="Total Borrowed" name="unit_borrowed[]" min=0
+                        id="unit_borrowed${incrementalId}" value="{{ old('unit_borrowed') }}">
+
+                    @error('unit_borrowed')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>`;
+
+            $('#newUnitRow').append(newRowUnit);
+
+            const element = document.querySelector(`#newAssets${incrementalId}`);
+            new Choices(element, {
+                searchEnabled: true, // Mengaktifkan fitur pencarian
+                searchChoices: true, // Mengaktifkan pencarian saat mengetik
+                itemSelectText: 'Press to Select', // Mengubah teks yang ditampilkan saat item dipilih (opsional)
+                allowHTML: true,
+            });
+
+            incrementalId++;
+
+            // log biar tau kenapa harus di kurangain incrementalId--
+            console.log(incrementalId);
+
+            if (incrementalId > 2) {
+                $('#deleteAssetContainer').show();
+            }
+        });
+
+        $('#deleteAsset').click(function () {
+            // Mengurangi incrementalId sebelum menghapus elemen
+            incrementalId--;
+
+            $(`#rowAsset${incrementalId}`).remove();
+            $(`#rowUnit${incrementalId}`).remove();
+
+            if (incrementalId === 2) {
+                $('#deleteAssetContainer').hide();
+            }
+        });
+
+        const elements = document.querySelectorAll('#assets, #user');
+        elements.forEach(element => {
+            new Choices(element, {
+                searchEnabled: true,
+                searchChoices: true,
+                itemSelectText: 'Press to Select',
+                allowHTML: true
+            })
+        });
+    });
+</script>
+@endpush

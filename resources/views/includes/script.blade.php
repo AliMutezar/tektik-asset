@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="{{ url('assets/js/bootstrap.js') }}"></script>
 <script src="{{ url('assets/js/app.js') }}"></script>
 
@@ -7,8 +6,9 @@
 <script src="{{ url("assets/js/pages/dashboard.js") }}"></script>
 
 {{-- Choices --}}
-<script src="{{ url('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
-<script src="{{ url('assets/js/pages/form-element-select.js') }}"></script>
+{{-- <script src="{{ url('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
+<script src="{{ url('assets/js/pages/form-element-select.js') }}"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
 {{-- Sweetalert --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

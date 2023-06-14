@@ -1,5 +1,9 @@
 {{-- choices --}}
-<link rel="stylesheet" href="{{ url('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+{{-- <link rel="stylesheet" href="{{ url('assets/extensions/choices.js/public/assets/styles/choices.css') }}"> --}}
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/>
 
 {{-- Main --}}
 <link rel="stylesheet" href="{{ url('assets/css/main/app.css') }}">

@@ -44,7 +44,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="vendor" class="mb-2">Vendor Name</label>
                                             <div class="form-group @error('vendor_id') is-invalid @enderror">
-                                                <select class="choices form-select" name="vendor_id">
+                                                <select class="choices form-select form-control-lg" name="vendor_id" id="vendor">
                                                     <option value="" disabled>Select Vendor</option>
 
                                                     @foreach ($vendors as $vendor)
@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <label for="asset_name" class="mb-2">Asset Name</label>
                                                 <input type="text"
-                                                    class="form-control form-lg @error('asset_name') is-invalid @enderror"
+                                                    class="form-control form-control-lg @error('asset_name') is-invalid @enderror"
                                                     placeholder="Exp: Laptop or Camera etc" name="asset_name"
                                                     value="{{ old('asset_name') }}">
 
@@ -80,7 +80,7 @@
                                             <div class="form-group">
                                                 <label for="serial_number" class="mb-2">Serial Number</label>
                                                 <input type="text"
-                                                    class="form-control form-lg @error('serial_number') is-invalid @enderror"
+                                                    class="form-control form-lg form-control-lg @error('serial_number') is-invalid @enderror"
                                                     placeholder="Asset Serial Number" name="serial_number"
                                                     value="{{ old('serial_number') }}" min="0">
 
@@ -95,7 +95,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="condition" class="mb-2">Asset Condition</label>
                                             <div class="form-group @error('condition') is-invalid @enderror">
-                                                <select class="form-select" name="condition" id="province">
+                                                <select class="form-select" name="condition" id="condition">
                                                     <option value="" disabled selected>Select Condition</option>
                                                         <option value="good">Good</option>
                                                         <option value="not bad">Not Bad</option>
@@ -114,7 +114,7 @@
                                             <div class="form-group">
                                                 <label for="price_unit" class="mb-2">Price / unit</label>
                                                 <input type="number"
-                                                    class="form-control form-lg @error('price_unit') is-invalid @enderror"
+                                                    class="form-control form-control-lg @error('price_unit') is-invalid @enderror"
                                                     placeholder="The Price of The Asset" name="price_unit"
                                                     value="{{ old('price_unit') }}" min="0">
 
@@ -130,7 +130,7 @@
                                             <div class="form-group">
                                                 <label for="stock_unit" class="mb-2">Asset Stock</label>
                                                 <input type="number"
-                                                    class="form-control form-lg @error('stock_unit') is-invalid @enderror"
+                                                    class="form-control form-control-lg @error('stock_unit') is-invalid @enderror"
                                                     placeholder="Stock of Asset" name="stock_unit"
                                                     value="{{ old('stock_unit') }}" min="0">
 
@@ -161,4 +161,15 @@
 
 @push('after-script')
    <script src="{{ url('assets/js/id_location.js') }}"></script>
+   <script>
+        const elements = document.querySelectorAll('#vendor, #condition')
+        elements.forEach(element => {
+            new Choices(element, {
+                searchEnabled: true,
+                searchChoices: true,
+                itemSelectText: 'Press to Select',
+                allowHTML: true
+            });
+        });
+   </script>
 @endpush

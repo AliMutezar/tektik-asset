@@ -76,7 +76,7 @@
                                     <span class="badge bg-light-danger">Lost</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @if ($loan->return_code !== null)
                                         <span class="badge bg-light-success">{{ $loan->return_code }}</span>
                                     @else

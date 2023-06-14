@@ -108,7 +108,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="role" class="mb-2">Role User</label>
                                             <div class="form-group @error('role') is-invalid @enderror">
-                                                <select class="choices role form-select" name="role">
+                                                <select class="choices role form-select" name="role" id="userRole">
                                                     <option value="" selected disabled>Choose Role</option>
 
                                                     <option value="staff" {{ old('role') == 'staff' ?
@@ -130,7 +130,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>
                                             <div class="form-group @error('division_id') is-invalid @enderror">
-                                                <select class="choices form-select" name="division_id">
+                                                <select class="choices form-select" name="division_id" id="division">
                                                     <option value="" selected @readonly(true)>Choose Division</option>
 
                                                     @foreach ($divisions as $division)
@@ -209,3 +209,17 @@
     @include('includes.footer')
 </div>
 @endsection
+
+@push('after-script')
+    <script>
+        const elements = document.querySelectorAll('#userRole, #division');
+        elements.forEach(element => {
+            new Choices(element, {
+                searchEnabled: true, // Mengaktifkan fitur pencarian
+                searchChoices: true, // Mengaktifkan pencarian saat mengetik
+                itemSelectText: 'Press to Select', // Mengubah teks yang ditampilkan saat item dipilih (opsional)
+                allowHTML: true,
+            });
+        });
+    </script>
+@endpush

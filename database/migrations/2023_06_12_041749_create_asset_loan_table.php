@@ -21,7 +21,7 @@ return new class extends Migration
                 table:'assets', indexName:'fk_asset_loan_to_assets'
             )->cascadeOnDelete()->cascadeOnUpdate();
 
-            $table->integer('unit_borrowed');
+            $table->integer('unit_borrowed')->default(0);
 
             $table->timestamps();
         });

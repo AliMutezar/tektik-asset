@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLoanRequest;
 use App\Models\Asset;
 use App\Models\AssetLoan;
 use App\Models\Loan;
@@ -29,15 +30,16 @@ class LoanController extends Controller
     public function create()
     {
         $assets = Asset::with('vendor')->get();
-        return view('dashboard.loan.create', compact('assets')); 
+        $users = Loan::with('user')->get(); 
+        return view('dashboard.loan.create', compact('assets', 'users')); 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLoanRequest $request, Loan $loan)
     {
-        //
+        
     }
 
     /**
