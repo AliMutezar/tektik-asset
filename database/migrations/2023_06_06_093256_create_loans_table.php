@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->string('loan_code');
-            // $table->integer('loan_user_id');
-            $table->string('signature_loan');
-            // $table->integer('admin_user_id');
-            $table->string('signature_admin');
+            $table->string('signature_loan')->nullable();
+            $table->string('signature_admin')->nullable();
             $table->date('date_receipt');
             $table->string('photo_receipt');
             $table->boolean('status');

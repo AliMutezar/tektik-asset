@@ -60,20 +60,21 @@
 
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
-                                            <div class="form-group @error('loan_user_id') is-invalid @enderror">
+                                            <div class="form-group  @error('loan_user_id') is-invalid @enderror">
                                                 <select class="form-select choices" name="loan_user_id" id="user">
-                                                    <option value="" disabled>Select Asset</option>
+                                                    <option value="" disabled>Select User</option>
 
-                                                    @foreach ($users as $employee)
+                                                    @foreach ($users as $user)
 
-                                                    <option value="{{ $employee->id}}">{{ $employee->user->name . ' - '
-                                                        . $employee-> user->division->name}}</option>
+                                                    <option value="{{ $user->id}}" @if (old('loan_user_id') == $user->id) selected @endif>
+                                                        {{ $user->name}}
+                                                    </option>
 
                                                     @endforeach
 
                                                 </select>
-                                                @error('asset_id')
-                                                <div class="invalid-feedback" style="display: block;">
+                                                @error('loan_user_id')
+                                                <div class="invalid-feedback" style="margin-top:-1.25rem; display: block;">
                                                     {{ $message }}
                                                 </div>
                                                 @enderror
@@ -81,7 +82,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row mb-4">
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="asset" class="mb-2">Asset</label>
                                             <div class="form-group @error('asset_id') is-invalid @enderror">
@@ -89,15 +90,16 @@
                                                     <option value="" disabled>Select Asset</option>
 
                                                     @foreach ($assets as $asset)
-
-                                                    <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' .
-                                                        $asset->vendor->company_name}}</option>
+                                                    <p>test {{ $asset->id }}</p>
+                                                    <option value="{{ $asset->id}}" @if (in_array($asset->id, old('asset_id', []))) selected @endif>
+                                                        {{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}
+                                                    </option>
 
                                                     @endforeach
 
                                                 </select>
                                                 @error('asset_id')
-                                                <div class="invalid-feedback" style="display: block;">
+                                                <div class="invalid-feedback" style="margin-top:-1.25rem; display: block;">
                                                     {{ $message }}
                                                 </div>
                                                 @enderror
@@ -107,11 +109,9 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <div class="form-group">
                                                 <label for="unit_borrowed" class="mb-2">Units</label>
-                                                <input type="number"
-                                                    class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
-                                                    placeholder="Total Borrowed" name="unit_borrowed[]" min=0
-                                                    id="unit_borrowed" value="{{ old('unit_borrowed') }}">
-
+                                                <input type="number" class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
+                                                    placeholder="Total Borrowed" name="unit_borrowed[]" min="0" max="4" required>
+                                                
                                                 @error('unit_borrowed')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -136,6 +136,34 @@
                                                     <i data-feather="x" class="me-2"></i> Delete Asset
                                                 </a>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-4 g-3">
+                                        <div class="col-md-6 col-12">
+                                            <label for="date_receipt" class="form-label">Date Receipt</label>
+                                            <div class="input-group"
+                                                data-target-input="nearest">
+                                                <input type="date"
+                                                    class="form-control form-control-lg @error('date_receipt') is-invalid @enderror"
+                                                    name="date_receipt" value="{{ old('date_receipt') }}" />
+
+                                                @error('date_receipt')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <label for="#" class="form-label mb-2">Photo Receipt</label>
+                                            <input class="form-control form-control-lg @error('photo_receipt') is-invalid @enderror" id="#" type="file" name="photo_receipt">
+
+                                            @error('photo_receipt')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -170,7 +198,7 @@
 
                         @foreach ($assets as $asset)
                             
-                            <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->vendor->company_name}}</option>
+                            <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
                         
                         @endforeach
 
@@ -191,7 +219,7 @@
                     <input type="number"
                         class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
                         placeholder="Total Borrowed" name="unit_borrowed[]" min=0
-                        id="unit_borrowed${incrementalId}" value="{{ old('unit_borrowed') }}">
+                        id="unit_borrowed${incrementalId}">
 
                     @error('unit_borrowed')
                     <div class="invalid-feedback">

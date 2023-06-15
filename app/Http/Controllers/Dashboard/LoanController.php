@@ -7,7 +7,9 @@ use App\Http\Requests\StoreLoanRequest;
 use App\Models\Asset;
 use App\Models\AssetLoan;
 use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -20,7 +22,6 @@ class LoanController extends Controller
     {       
         $loans = Loan::with(['user'])->get();
         $title = "Data Loans";
-        // dd($loans);
         return view('dashboard.loan.index', compact('loans', 'title'));
     }
 
@@ -30,7 +31,7 @@ class LoanController extends Controller
     public function create()
     {
         $assets = Asset::with('vendor')->get();
-        $users = Loan::with('user')->get(); 
+        $users = User::all(); 
         return view('dashboard.loan.create', compact('assets', 'users')); 
     }
 
@@ -39,7 +40,42 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request, Loan $loan)
     {
-        
+       $loan = loan::create([
+            'loan_code' => $request->loan_code,
+            'loan_user_id' => $request->loan_user_id,
+            'admin_user_id' => Auth::user()->id,
+            'date_receipt' => $request->date_receipt,
+            'signature_loan' => null,
+            'signature_admin' => null,
+            'status' => 0,
+            'return_code' => null,
+            'photo_receipt' => $request->photo_receipt
+       ]);
+
+       if ($request->hasFile('photo_receipt')) {
+            $photoPath = $request->file('photo_receipt')->store('photo_receipt', 'public');
+            $loan->photo_receipt = $photoPath;
+            $loan->save();
+       }
+
+       $assetsIds = $request->asset_id;
+       $unitBorrowed = $request->unit_borrowed;
+
+       foreach ($assetsIds as $index => $assetsId) {
+            AssetLoan::create([
+                'loan_id' => $loan->id,
+                'asset_id' => $assetsId,
+                'unit_borrowed' => $unitBorrowed[$index]
+            ]);
+
+            // dd($assetsId);
+            $asset = Asset::findOrFail($assetsId);
+            $asset->stock_unit -= intval($unitBorrowed[$index]);
+            $asset->save();
+       }
+
+       return redirect()->route('loans.index')->with('success', 'Data loan has been inserted successfully');
+
     }
 
     /**
@@ -69,8 +105,9 @@ class LoanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Loan $loan)
     {
-        //
+        $loan->delete();
+        return redirect()->route('loans.index')->with('success', 'Data loan has been deleted successfully');
     }
 }

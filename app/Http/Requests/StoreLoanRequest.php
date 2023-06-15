@@ -23,18 +23,18 @@ class StoreLoanRequest extends FormRequest
     {
         return [
             'loan_code' => ['required', 'unique:loans,loan_code'],
-            'asset_id' => ['required', 'integer'],
-            'asset_id*' => ['distinct'],
-            
-            'unit_asset_received' => ['required', 'integer'],
+            'asset_id' => ['required', 'array'],
+            'asset_id.*' => 'exists:assets,id',
+            'unit_borrowed' => ['required', 'array'],
+            'unit_borrowed.*' => 'numeric|min:0',
             'loan_user_id' => ['required', 'integer'],
-            'signature_loan' => ['nullable', 'string'],
-            'admin_user_id' => ['required', 'integer'],
-            'signature_admin' => ['nullable', 'string'],
+            // 'signature_loan' => ['nullable', 'string'],
+            // 'admin_user_id' => ['required'],
+            // 'signature_admin' => ['nullable', 'string'],
             'date_receipt' => ['required', 'date'],
-            'photo_receipt' => ['image', 'max:1048'],
-            'status' => ['required', 'boolean'],
-            'return_code' => ['nullable', 'unique:loans,return_code']
+            'photo_receipt' => ['required', 'image', 'max:1048'],
+            // 'status' => ['required', 'boolean'],
+            // 'return_code' => ['nullable', 'unique:loans,return_code']
         ];
     }
 }

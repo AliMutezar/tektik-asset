@@ -112,7 +112,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img class="d-block w-100" src="{{ $loan->photo_receipt }}">
+                                                <img class="d-block w-100" src="{{ asset('storage/' . $loan->photo_receipt ) }}">
                                             </div>
 
                                             <div class="modal-footer">
