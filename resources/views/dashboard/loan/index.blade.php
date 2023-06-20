@@ -93,7 +93,7 @@
                                             @method('DELETE')
 
                                             <a href="#" class="icon text-danger"
-                                                onclick="confirmDelete(event, '{{ $loan->id }}')"><i class="bi bi-x"
+                                                onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
                                                     style="font-size: 1.2rem;"></i></a>
                                         </form>
                                     </div>

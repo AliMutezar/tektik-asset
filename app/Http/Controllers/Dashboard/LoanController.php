@@ -40,7 +40,24 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request, Loan $loan)
     {
-       $loan = loan::create([
+
+        $assetsIds = $request->asset_id;
+        $unitBorrowed = $request->unit_borrowed;
+        $errors = [];
+
+        foreach ($assetsIds as $index => $assetsId) {
+            $asset = Asset::findOrFail($assetsId);
+            if ($asset->stock_unit < intval($unitBorrowed[$index])) {
+                $errors[$assetsId] = "Stock yang dipinjam, melebihi stock yang tersedia . $asset->asset_name"; 
+            }
+            
+            if(!empty($errors)) {
+                return redirect()->back()->withErrors($errors)->withInput()->with('error', "stock yang dipinjam, melebihi stock yang tersedia " . $asset->asset_name . " - " . $asset->vendor->company_name);
+            }
+
+        }
+
+        $loan = loan::create([
             'loan_code' => $request->loan_code,
             'loan_user_id' => $request->loan_user_id,
             'admin_user_id' => Auth::user()->id,
@@ -50,7 +67,7 @@ class LoanController extends Controller
             'status' => 0,
             'return_code' => null,
             'photo_receipt' => $request->photo_receipt
-       ]);
+        ]);
 
        if ($request->hasFile('photo_receipt')) {
             $photoPath = $request->file('photo_receipt')->store('photo_receipt', 'public');
@@ -58,21 +75,21 @@ class LoanController extends Controller
             $loan->save();
        }
 
-       $assetsIds = $request->asset_id;
-       $unitBorrowed = $request->unit_borrowed;
+      
 
-       foreach ($assetsIds as $index => $assetsId) {
-            AssetLoan::create([
-                'loan_id' => $loan->id,
-                'asset_id' => $assetsId,
-                'unit_borrowed' => $unitBorrowed[$index]
-            ]);
-
-            // dd($assetsId);
+        foreach ($assetsIds as $index => $assetsId) {
             $asset = Asset::findOrFail($assetsId);
-            $asset->stock_unit -= intval($unitBorrowed[$index]);
-            $asset->save();
-       }
+            if ($asset->stock_unit >= intval($unitBorrowed[$index])) {
+                $asset->stock_unit -= intval($unitBorrowed[$index]);
+                $asset->save();
+
+                AssetLoan::create([
+                    'loan_id' => $loan->id,
+                    'asset_id' => $assetsId,
+                    'unit_borrowed' => $unitBorrowed[$index]
+                ]);
+            }
+        }
 
        return redirect()->route('loans.index')->with('success', 'Data loan has been inserted successfully');
 
@@ -106,7 +123,16 @@ class LoanController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Loan $loan)
-    {
+    {   
+        $loanId = $loan->id;
+        $assetLoanData = AssetLoan::where('loan_id', $loanId)->get();
+
+        foreach ($assetLoanData as $assetLoan) {
+            $asset = Asset::findOrFail($assetLoan->asset_id);
+            $asset->stock_unit += $assetLoan->unit_borrowed;
+            $asset->save();
+        }
+
         $loan->delete();
         return redirect()->route('loans.index')->with('success', 'Data loan has been deleted successfully');
     }

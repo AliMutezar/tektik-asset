@@ -28,8 +28,24 @@
 </script>
 @endif
 
+@if (session('error'))
+    <script>
+        Swal.fire({
+            toast: true,
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+            position: 'top-end',
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 5000
+        });
+    </script>
+@endif
+
+
 <script>
-    function confirmDelete(event, userId) {
+    function confirmDelete(event, dataId) {
         event.preventDefault();
         
         Swal.fire({
@@ -45,7 +61,28 @@
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm' + userId).submit();
+                document.getElementById('deleteForm' + dataId).submit();
+            }
+        });
+    }
+
+    function confirmDeleteLoan(event, dataId) {
+        event.preventDefault();
+        
+        Swal.fire({
+            title: 'Want to delete this data?',
+            text: "All stock items related to this loan will be returned",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#fff',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Yes, delete it!',
+            customClass : {
+                confirmButton : 'swall-confirm-button'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm' + dataId).submit();
             }
         });
     }

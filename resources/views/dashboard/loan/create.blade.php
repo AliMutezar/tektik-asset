@@ -90,8 +90,7 @@
                                                     <option value="" disabled>Select Asset</option>
 
                                                     @foreach ($assets as $asset)
-                                                    <p>test {{ $asset->id }}</p>
-                                                    <option value="{{ $asset->id}}" @if (in_array($asset->id, old('asset_id', []))) selected @endif>
+                                                    <option value="{{ $asset->id}}" data-stock="{{ $asset->stock_unit }}" @if (in_array($asset->id, old('asset_id', []))) selected @endif>
                                                         {{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}
                                                     </option>
 
@@ -106,22 +105,19 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-12 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <div class="form-group">
                                                 <label for="unit_borrowed" class="mb-2">Units</label>
-                                                <input type="number" class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
-                                                    placeholder="Total Borrowed" name="unit_borrowed[]" min="0" max="4" required>
-                                                
-                                                @error('unit_borrowed')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                                <div class="gap-3 col-12 d-flex align-items-center">
+                                                    <button type="button" class="btn btn-outline-primary decreaseButton">-</button>
+                                                    <input type="number"  name="unit_borrowed[]" class="numberInput text-center form-control form-control-lg @error('unit_borrowed') is-invalid @enderror" min="1" readonly>
+                                                    <button type="button" class="btn btn-outline-primary increaseButton">+</button>
                                                 </div>
-                                                @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 col-12" id="newAssetRow"></div>
-                                        <div class="col-md-6 col-12" id="newUnitRow"></div>
+                                        <div class="col-md-3" id="newUnitRow"></div>
 
                                         <div class="col-md-4 col-12 mt-3 d-flex gap-3">
                                             <a href="#"
@@ -185,71 +181,126 @@
 
 @push('after-script')
 <script>
+    $(document).ready(function() {
+        const decreaseButtons = $('.decreaseButton');
+        const increaseButtons = $('.increaseButton');
+        const numberInputs = $('.numberInput');
+
+        // Fungsi untuk mengatur status tombol berdasarkan nilai saat ini
+        function updateButtonStatus(numberInput, decreaseButton, increaseButton) {
+            const currentNumber = parseInt(numberInput.val());
+            decreaseButton.prop('disabled', currentNumber <= 1);
+        }
+
+        // Mengatur nilai awal input number dan memperbarui status tombol saat halaman dimuat
+        numberInputs.val('1');
+        numberInputs.each(function(index, element) {
+            const decreaseButton = decreaseButtons.eq(index);
+            const increaseButton = increaseButtons.eq(index);
+            updateButtonStatus($(element), decreaseButton, increaseButton);
+        });
+
+        // Event listener untuk tombol decrease
+        decreaseButtons.on('click', function(event) {
+            event.preventDefault();
+            const index = decreaseButtons.index(this);
+            const numberInput = numberInputs.eq(index);
+            const decreaseButton = decreaseButtons.eq(index);
+            const increaseButton = increaseButtons.eq(index);
+            let currentNumber = parseInt(numberInput.val());
+            if (currentNumber > 1) {
+                currentNumber--;
+                numberInput.val(currentNumber);
+                updateButtonStatus(numberInput, decreaseButton, increaseButton);
+            }
+        });
+
+        // Event listener untuk tombol increase
+        increaseButtons.on('click', function(event) {
+            event.preventDefault();
+            const index = increaseButtons.index(this);
+            const numberInput = numberInputs.eq(index);
+            const decreaseButton = decreaseButtons.eq(index);
+            const increaseButton = increaseButtons.eq(index);
+            let currentNumber = parseInt(numberInput.val());
+            currentNumber++;
+            numberInput.val(currentNumber);
+            updateButtonStatus(numberInput, decreaseButton, increaseButton);
+        });
+    });
+</script>
+
+
+
+
+
+<script>
     var incrementalId = 2;
     $(document).ready(function () {
         $('#addAsset').click(function () {
-            // console.log("test tombol");
             var newRowAsset = '';
             newRowAsset += `
             <div class="form-group @error('asset_id') is-invalid @enderror" id="rowAsset${incrementalId}">
                 <label for="asset" class="mb-2">Asset ${incrementalId}</label>
-                    <select class="form-select choices" name="asset_id[]" id="newAssets${incrementalId}">
-                        <option value="" disabled>Select Asset</option>
-
-                        @foreach ($assets as $asset)
-                            
-                            <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
-                        
-                        @endforeach
-
-                    </select>
-                    @error('asset_id')
-                    <div class="invalid-feedback" style="display: block;">
-                        {{ $message }}
-                    </div>
-                    @enderror
+                <select class="form-select choices" name="asset_id[]" id="newAssets${incrementalId}">
+                    <option value="" disabled>Select Asset</option>
+                    @foreach ($assets as $asset)
+                        <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
+                    @endforeach
+                </select>
             </div>`;
 
             $('#newAssetRow').append(newRowAsset);
 
             var newRowUnit = '';
             newRowUnit += `
-                <div class="form-group" id="rowUnit${incrementalId}">
-                    <label for="unit_borrowed" class="mb-2">Units ${incrementalId}</label>
-                    <input type="number"
-                        class="form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
-                        placeholder="Total Borrowed" name="unit_borrowed[]" min=0
-                        id="unit_borrowed${incrementalId}">
-
-                    @error('unit_borrowed')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>`;
+            <div class="form-group" id="rowUnit${incrementalId}">
+                <label for="unit_borrowed" class="mb-2">Units ${incrementalId}</label>
+                <div class="gap-3 col-12 d-flex align-items-center">
+                    <button class="btn btn-outline-primary decreaseButton" data-row="${incrementalId}">-</button>
+                    <input type="number"  name="unit_borrowed[]" class="numberInput text-center form-control form-control-lg @error('unit_borrowed') is-invalid @enderror" min="1" value="1" readonly>
+                    <button class="btn btn-outline-primary increaseButton" data-row="${incrementalId}">+</button>
+                </div>
+            </div>`;
 
             $('#newUnitRow').append(newRowUnit);
 
             const element = document.querySelector(`#newAssets${incrementalId}`);
             new Choices(element, {
-                searchEnabled: true, // Mengaktifkan fitur pencarian
-                searchChoices: true, // Mengaktifkan pencarian saat mengetik
-                itemSelectText: 'Press to Select', // Mengubah teks yang ditampilkan saat item dipilih (opsional)
+                searchEnabled: true,
+                searchChoices: true,
+                itemSelectText: 'Press to Select',
                 allowHTML: true,
             });
 
             incrementalId++;
 
-            // log biar tau kenapa harus di kurangain incrementalId--
-            console.log(incrementalId);
-
-            if (incrementalId > 2) {
+            if(incrementalId > 2) {
                 $('#deleteAssetContainer').show();
             }
         });
 
+        $('#newUnitRow').on('click', '.decreaseButton', function (event) {
+            event.preventDefault();
+            const rowId = $(this).data('row');
+            const numberInput = $(`#rowUnit${rowId} .numberInput`);
+            let currentNumber = parseInt(numberInput.val());
+            if (currentNumber > 1) {
+                currentNumber--;
+                numberInput.val(currentNumber);
+            }
+        });
+
+        $('#newUnitRow').on('click', '.increaseButton', function (event) {
+            event.preventDefault();
+            const rowId = $(this).data('row');
+            const numberInput = $(`#rowUnit${rowId} .numberInput`);
+            let currentNumber = parseInt(numberInput.val());
+            currentNumber++;
+            numberInput.val(currentNumber);
+        });
+
         $('#deleteAsset').click(function () {
-            // Mengurangi incrementalId sebelum menghapus elemen
             incrementalId--;
 
             $(`#rowAsset${incrementalId}`).remove();
@@ -266,9 +317,10 @@
                 searchEnabled: true,
                 searchChoices: true,
                 itemSelectText: 'Press to Select',
-                allowHTML: true
-            })
+                allowHTML: true,
+            });
         });
     });
 </script>
+
 @endpush
