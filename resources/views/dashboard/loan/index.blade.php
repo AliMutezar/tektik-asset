@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Loan')
+@section('title', 'Asset Loan')
 
 @section('content')
 <div id="main">
@@ -15,7 +15,9 @@
                 <div class="col-12 col-md-6 order-md-1 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Asset Formulir</li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
                             <li class="breadcrumb-item active" aria-current="page">Loan Form</li>
                         </ol>
                     </nav>
@@ -85,16 +87,20 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('loans.edit', $loan->id) }}" class="icon me-3"><i
-                                                class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
                                         <form action="{{ route('loans.destroy', $loan->id) }}" method="POST"
                                             id="deleteForm{{ $loan->id }}">
                                             @csrf
                                             @method('DELETE')
-
-                                            <a href="#" class="icon text-danger"
-                                                onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
-                                                    style="font-size: 1.2rem;"></i></a>
+                                            
+                                            @if ($loan->return_code !== null)
+                                                <a href="#" class="icon text-danger d-none"
+                                                    onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
+                                                    style="font-size: 1.2rem;"></i>Delete</a>
+                                            @else
+                                                <a href="#" class="icon text-danger"
+                                                    onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
+                                                        style="font-size: 1.2rem;"></i>Delete</a>
+                                            @endif
                                         </form>
                                     </div>
                                 </td>

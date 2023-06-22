@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Add Loan')
+@section('title', 'Add Asset Loan')
 
 @section('content')
 <div id="main">
@@ -16,7 +16,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('loans.index') }}">Loans</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Loan</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Asset Loan</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12 col-md-6 order-md-1">
-                                    <h4 class="card-title">Add New Loan</h4>
+                                    <h4 class="card-title">Add New Asset Loan</h4>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
 
                                                     @foreach ($assets as $asset)
                                                     <option value="{{ $asset->id}}" data-stock="{{ $asset->stock_unit }}" @if (in_array($asset->id, old('asset_id', []))) selected @endif>
-                                                        {{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}
+                                                        {{ $asset->asset_name . ' - Stock ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}
                                                     </option>
 
                                                     @endforeach
@@ -245,7 +245,7 @@
                 <select class="form-select choices" name="asset_id[]" id="newAssets${incrementalId}">
                     <option value="" disabled>Select Asset</option>
                     @foreach ($assets as $asset)
-                        <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
+                        <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - Stock ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
                     @endforeach
                 </select>
             </div>`;

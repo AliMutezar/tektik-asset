@@ -8,7 +8,7 @@
         position : 'top-end',
         showConfirmButton: false,
         timerProgressBar: true,
-        timer: 3000
+        timer: 5000
     });
 </script>
 @endif
@@ -23,7 +23,7 @@
         position : 'top-end',
         showConfirmButton: false,
         timerProgressBar: true,
-        timer: 3500
+        timer: 5000
     });
 </script>
 @endif
@@ -71,7 +71,7 @@
         
         Swal.fire({
             title: 'Want to delete this data?',
-            text: "All stock items related to this loan will be returned",
+            text: "All stock items related to this loan will be returned and return code for this loan will also deleted",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#fff',

@@ -10,7 +10,6 @@ use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class LoanController extends Controller
@@ -21,7 +20,7 @@ class LoanController extends Controller
     public function index(): View
     {       
         $loans = Loan::with(['user'])->get();
-        $title = "Data Loans";
+        $title = "Data Asset Loans";
         return view('dashboard.loan.index', compact('loans', 'title'));
     }
 
@@ -30,7 +29,7 @@ class LoanController extends Controller
      */
     public function create()
     {
-        $assets = Asset::with('vendor')->get();
+        $assets = Asset::with('vendor')->where('stock_unit', '>', 0)->get();
         $users = User::all(); 
         return view('dashboard.loan.create', compact('assets', 'users')); 
     }
