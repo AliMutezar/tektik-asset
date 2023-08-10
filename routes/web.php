@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('divisions', DivisionController::class);
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
-    Route::resource('assets', AssetController::class);
+    Route::resource('asets', AssetController::class);
     Route::resource('loans', LoanController::class)->except(['edit']);
     Route::resource('returns', ReturnController::class)->except(['edit', 'destroy']);
 });

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDivisonRequest;
+use App\Http\Requests\UpdateDivisionRequest;
 use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class DivisionController extends Controller
 {
@@ -14,8 +18,8 @@ class DivisionController extends Controller
      * Display a listing of the resource.
      */
     public function index(): View
-    {   
-        $divisions = Division::all();
+    {
+        $divisions = Division::latest()->get();
         $title = 'Data Division';
         return view('dashboard.division.index', compact(['divisions', 'title']));
     }
@@ -31,9 +35,11 @@ class DivisionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDivisonRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        Division::create($data);
+        return redirect()->route('divisions.index')->with('success', 'Data division has been inserted succesfully');
     }
 
     /**
@@ -49,15 +55,18 @@ class DivisionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateDivisionRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        Division::find($id)->update($data);
+        return Redirect::back()->with('success', 'Division has been updated');
     }
 
     /**
@@ -65,6 +74,8 @@ class DivisionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Division::find($id)->delete();
+
+        return Redirect::back()->with('success', 'Divison has been deleted');
     }
 }

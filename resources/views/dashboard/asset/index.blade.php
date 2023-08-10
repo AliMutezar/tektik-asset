@@ -30,7 +30,7 @@
                     <div class="col-sm-6 col-md-12 d-flex justify-content-between">
                         {{ $title }}
 
-                        <a href="{{ route('assets.create') }}"
+                        <a href="{{ route('asets.create') }}"
                             class="btn icon icon-left btn-primary btn-sm d-flex align-items-center"><i
                                 data-feather="plus" class="me-2"></i> Add Asset</a>
                     </div>
@@ -88,22 +88,22 @@
             language: {
                 processing: '<img src="assets/images/svg-loaders/puff.svg" class="me-4" style="width: 3rem" alt="audio">'
             },
-            ajax: '{{ route('assets.index') }}',
+            ajax: '{{ route('asets.index') }}',
 
-            // menambahkan kolom sesuai dengan kolom tabel, dan eberapa kolom seperti no, condition, price di custom 
+            // menambahkan kolom sesuai dengan kolom tabel, dan eberapa kolom seperti no, condition, price di custom
             columns: [
-                { 
+                {
                     data: null,
                     render: function(data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
-    
+
                 { data: 'vendor.company_name', name: 'vendor.company_name' },
                 { data: 'asset_name', name: 'asset_name' },
                 { data: 'serial_number', name: 'serial_number', className: 'text-center'},
 
-                { 
+                {
                     data: 'condition', name: 'condition',
                     render: function(data) {
                         var badgeClass = '';
@@ -120,7 +120,7 @@
                     }
                 },
 
-                { 
+                {
                     data: 'price_unit', name: 'price_unit',
                     render: function(data) {
                         var formattedPrice = numeral(data).format('0,0');
@@ -160,21 +160,21 @@
         // Hover column
         // $('#asset-table tbody').on('mouseenter', 'td', function() {
         //     var colIdx = table.cell(this).index().column;
-        
+
         //     $(table.cells().nodes()).removeClass('highlight');
         //     $(table.column(colIdx).nodes()).addClass('highlight');
         // }).on('mouseleave', function() {
         //     $(table.cells().nodes()).removeClass('highlight')
         // });
-    
 
-    
+
+
         $('#asset-table').on('click', '.delete-btn', function (e) {
             e.preventDefault();
             var assetId = $(this).data('id');
             confirmDelete(assetId);
         });
-    
+
         function confirmDelete(assetId) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -193,11 +193,11 @@
                 }
             });
         }
-    
+
         function deleteAsset(assetId) {
-            var deleteUrl = '{{ route('assets.destroy', ':id') }}';
+            var deleteUrl = '{{ route('asets.destroy', ':id') }}';
             deleteUrl = deleteUrl.replace(':id', assetId);
-    
+
             $.ajax({
                 url: deleteUrl,
                 type: 'DELETE',
@@ -230,10 +230,10 @@
                             showConfirmButton: false,
                             timer: 3500
                         });
-    
+
                     }
                 },
-    
+
                 error: function(xhr) {
                     Swal.fire({
                         icon: 'error',

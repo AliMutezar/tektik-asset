@@ -5,7 +5,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="index.html"><img src="{{ url('assets/images/logo/tektik-full.png') }}" style="height: 2.5rem; width: auto;" alt="Logo">
-                    
+
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -55,31 +55,31 @@
                     </a>
                 </li>
 
-                
+
                 <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
-                    
+
                     <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }}">
                         <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}">Employees</a>
                         </li>
-                        {{-- <li class="submenu-item {{ request()->routeIs('division*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->routeIs('division*') ? 'active' : '' }}">
                             <i class="bi bi-building-fill-gear"></i>
                             <a href="{{ route('divisions.index') }}">Divisions</a>
-                        </li> --}}
+                        </li>
                         <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
                             <a href="{{ route('vendors.index') }}">Vendors</a>
                         </li>
                         <li class="submenu-item {{ request()->routeIs('assets*') ? 'active' : '' }}">
-                            <a href="{{ route('assets.index') }}">Asset</a>
+                            <a href="{{ route('asets.index') }}">Asset</a>
                         </li>
                     </ul>
                 </li>
                 @endcan
- 
+
                 <li class="sidebar-item {{ request()->routeIs('loans*', 'returns*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-text-fill"></i>

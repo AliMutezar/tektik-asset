@@ -15,7 +15,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('assets.index') }}">Asset</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('asets.index') }}">Asset</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Add Asset</li>
                         </ol>
                     </nav>
@@ -37,7 +37,7 @@
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form class="form" action="{{ route('assets.store') }}" method="POST">
+                                <form class="form" action="{{ route('asets.store') }}" method="POST">
                                     @csrf
 
                                     <div class="row mb-4">
@@ -50,7 +50,7 @@
                                                     @foreach ($vendors as $vendor)
                                                         <option value="{{ $vendor->id }}">{{ $vendor->company_name }}</option>
                                                     @endforeach
-                                                    
+
                                                 </select>
                                                 @error('vendor_id')
                                                 <div class="invalid-feedback" style="display: block; margin-top: -1.25rem;">
@@ -109,7 +109,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    
+
                                         <div class="col-md-6 col-12 my-3">
                                             <div class="form-group">
                                                 <label for="price_unit" class="mb-2">Price / unit</label>
@@ -141,7 +141,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12 d-grid gap-2 mt-3 d-md-block">
                                             <button type="submit" class="btn btn-primary me-1">Save</button>
                                         </div>

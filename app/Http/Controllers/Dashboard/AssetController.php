@@ -22,23 +22,23 @@ class AssetController extends Controller
         if($request->ajax()) {
             $assets = Asset::with('vendor')->get();
             return DataTables::of($assets)
-                ->addColumn('action', function ($asset) {
-                    $editUrl = route('assets.edit', $asset->id);
-                    $deleteUrl = route('assets.destroy', $asset->id);
+                ->addColumn('action', function ($assets) {
+                    $editUrl = route('asets.edit', $assets->id);
+                    $deleteUrl = route('asets.destroy', $assets->id);
                     return '
                         <div class="d-flex">
                             <a href="'.$editUrl.'" class="icon me-3">
                                 <i class="bi bi-pencil-fill" style="font-size:0.8rem;"></i>
                             </a>
                             <form action="'.$deleteUrl.'" method="POST">
-                                <a href="" class="icon text-danger delete-btn" data-id="'.$asset->id.'" id="btn-delete">
+                                <a href="" class="icon text-danger delete-btn" data-id="'.$assets->id.'" id="btn-delete">
                                     <i class="bi bi-x" style="font-size: 1.2rem;"></i>
                                 </a>
                             </form>
                         </div><x></x>
                     ';
 
-                    
+
                 })->rawColumns(['action'])->make(true);
 
         }
@@ -66,7 +66,7 @@ class AssetController extends Controller
     {
         $data = $request->validated();
         Asset::create($data);
-        return redirect()->route('assets.index')->with('success', 'Data asset has been inserted succesfully');
+        return redirect()->route('asets.index')->with('success', 'Data asset has been inserted succesfully');
     }
 
     /**
@@ -80,10 +80,10 @@ class AssetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Asset $asset): View
+    public function edit(string $id): View
     {
         $title = 'Edit Asset';
-        $asset = Asset::where('id', $asset->id)->first();
+        $asset = Asset::find($id);
         $vendors = Vendor::all();
         return view('dashboard.asset.edit', compact(['title', 'asset', 'vendors']));
     }
@@ -91,23 +91,23 @@ class AssetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreAssetRequest $request, Asset $asset)
+    public function update(StoreAssetRequest $request, string $id)
     {
         $data = $request->validated();
-        $asset->update($data);
+        Asset::find($id)->update($data);
 
-        return redirect()->route('assets.index')->with('success', 'Asset has been updated successfully');
+        return redirect()->route('asets.index')->with('success', 'Asset has been updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asset $asset)
+    public function destroy(string $id)
     {
         // tidak perlu reload model asset seperti kode yang dicomment dibawah, karena sudah digunakan sebagai parameter destroy, maka instance dari model $asset dapat kita digunakan
         // $asset = Asset::findOrFail($asset->id);
-
-        $asset->delete();
+        $data = Asset::find($id);
+        $data->delete();
         return response()->json([
             'success' => true,
             'message' => 'Data asset has been deleted successfully'
