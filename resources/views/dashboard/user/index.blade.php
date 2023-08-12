@@ -35,7 +35,7 @@
                                 data-feather="user-plus" class="me-2"></i> Add Employee</a>
                     </div>
                 </div>
-                <div class="card-body mt-3">
+                <div class="card-body mt-3t">
                     <table class="table display nowrap table-hover" style="width: 100%" id="data-table">
                         <thead>
                             <tr>

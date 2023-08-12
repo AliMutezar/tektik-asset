@@ -10,6 +10,7 @@ use App\Http\Controllers\Location\CityController;
 use App\Http\Controllers\Location\DistrictController;
 use App\Http\Controllers\Location\VillageController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/update-password', [ProfileController::class, 'update_password'])->name('update.password');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {

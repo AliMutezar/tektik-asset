@@ -106,7 +106,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="{{ route('update.password')}}" class='sidebar-link'>
                         <i class="bi bi-key-fill"></i>
                         <span>Change Password</span>
                     </a>

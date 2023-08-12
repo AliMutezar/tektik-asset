@@ -25,6 +25,11 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function update_password(): View
+    {
+        return view('profile.partials.update-password-form');
+    }
+
     /**
      * Update the user's profile information.
      */
@@ -36,17 +41,17 @@ class ProfileController extends Controller
             if ($request->oldImage && is_string($request->oldImage) && Storage::disk('public')->exists($request->oldImage)) {
                 Storage::disk('public')->delete($request->oldImage);
             }
-    
+
             $request->merge(['image' => $path_photo]);
         }
-        
+
         $request->user()->fill($request->validated());
-        
+
         // Kalo emailnya diganti, verisikasi ulang
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        
+
         $request->user()->save();
 
         if($request->hasFile('image')) {
