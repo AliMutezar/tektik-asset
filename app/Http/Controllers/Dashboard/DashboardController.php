@@ -14,12 +14,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $total_asset = Asset::count();
+        $assets = Asset::all();
+        $total_asset = Asset::sum('stock_unit');
         $total_vendor = Vendor::count();
         $total_loan = AssetLoan::count();
         $total_return = AssetReturn::count();
         return view('dashboard', compact(
-            'total_asset', 'total_vendor', 'total_loan', 'total_return'
+            'assets', 'total_asset', 'total_vendor', 'total_loan', 'total_return'
         ));
     }
 }

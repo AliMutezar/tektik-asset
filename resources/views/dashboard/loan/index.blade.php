@@ -60,7 +60,7 @@
                                 <td>{{ $loan->user->name }}</td>
                                 <td class="text-center">{{ $loan->assets->sum('pivot.unit_borrowed') }}</td>
                                 <td>{{ $loan->date_receipt }}</td>
-                                
+
                                 <td class="text-center">
                                     <a href="#" class="icon text-info" data-bs-toggle="modal"
                                         data-bs-target="#galleryModal{{ $loan->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -91,7 +91,7 @@
                                             id="deleteForm{{ $loan->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            
+
                                             @if ($loan->return_code !== null)
                                                 <a href="#" class="icon text-danger d-none"
                                                     onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
