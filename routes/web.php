@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AssetController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DivisionController;
 use App\Http\Controllers\Dashboard\LoanController;
 use App\Http\Controllers\dashboard\ReturnController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Location\DistrictController;
 use App\Http\Controllers\Location\VillageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return Redirect::route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware([
+    'auth', 'verified', 'role:admin'
+])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
