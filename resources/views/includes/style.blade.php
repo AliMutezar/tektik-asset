@@ -1,5 +1,4 @@
 {{-- choices --}}
-{{-- <link rel="stylesheet" href="{{ url('assets/extensions/choices.js/public/assets/styles/choices.css') }}"> --}}
 <link
 rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
@@ -20,3 +19,5 @@ href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.c
 <link rel="stylesheet" href="{{ url('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }} ">
 <link rel="stylesheet" href="{{ url('assets/extensions/toastify-js/src/toastify.css') }} ">
 <link rel="stylesheet" href="{{ url('assets/css/pages/filepond.css') }} ">
+
+<link rel="stylesheet" href="{{ url('assets/css/main/jquery.signature.css') }}">
