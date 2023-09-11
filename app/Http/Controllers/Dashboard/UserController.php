@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::all();
+        $users = User::with('division')->get();
         $title = 'Data Employees';
         return view('dashboard.user.index', compact(['users', 'title']));
     }

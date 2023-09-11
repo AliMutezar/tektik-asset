@@ -49,11 +49,10 @@ class LoanController extends Controller
             if ($asset->stock_unit < intval($unitBorrowed[$index])) {
                 $errors[$assetsId] = "Stock yang dipinjam, melebihi stock yang tersedia . $asset->asset_name"; 
             }
-            
-            if(!empty($errors)) {
-                return redirect()->back()->withErrors($errors)->withInput()->with('error', "stock yang dipinjam, melebihi stock yang tersedia " . $asset->asset_name . " - " . $asset->vendor->company_name);
-            }
+        }
 
+        if(!empty($errors)) {
+            return redirect()->back()->withErrors($errors)->withInput()->with('error', "stock yang dipinjam, melebihi stock yang tersedia " . $asset->asset_name . " - " . $asset->vendor->company_name);
         }
 
         $loan = loan::create([
@@ -61,7 +60,6 @@ class LoanController extends Controller
             'loan_user_id' => $request->loan_user_id,
             'admin_user_id' => Auth::user()->id,
             'date_receipt' => $request->date_receipt,
-            'signature_loan' => null,
             'signature_admin' => null,
             'status' => 0,
             'return_code' => null,
@@ -74,7 +72,19 @@ class LoanController extends Controller
             $loan->save();
        }
 
-      
+       dd($request->input('signature_loan'));
+       
+       if ($request->has('signature_loan')) {
+            $signatureData = $request->input('signature_loan');
+
+            $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+            $signatureData = str_replace(' ', '+', $signatureData);
+            $signatureImage = base64_decode($signatureData);
+
+            $loan = new Loan();
+            $loan->signature_loan = $signatureImage;
+            $loan->save();
+       }
 
         foreach ($assetsIds as $index => $assetsId) {
             $asset = Asset::findOrFail($assetsId);

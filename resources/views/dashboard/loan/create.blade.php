@@ -41,8 +41,8 @@
                                     enctype="multipart/form-data">
                                     @csrf
 
-                                    <div class="row mb-4">
-                                        <div class="col-md-6 col-12 mt-3">
+                                    <div class="row my-4">
+                                        <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label for="loan_code" class="mb-2">Loan Code</label>
                                                 <input type="text"
@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-12 mt-3">
+                                        <div class="col-md-6 col-12">
                                             <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
                                             <div class="form-group  @error('loan_user_id') is-invalid @enderror">
                                                 <select class="form-select choices" name="loan_user_id" id="user">
@@ -66,7 +66,8 @@
 
                                                     @foreach ($users as $user)
 
-                                                    <option value="{{ $user->id}}" @if (old('loan_user_id') == $user->id) selected @endif>
+                                                    <option value="{{ $user->id}}" @if (old('loan_user_id')==$user->id)
+                                                        selected @endif>
                                                         {{ $user->name}}
                                                     </option>
 
@@ -74,7 +75,8 @@
 
                                                 </select>
                                                 @error('loan_user_id')
-                                                <div class="invalid-feedback" style="margin-top:-1.25rem; display: block;">
+                                                <div class="invalid-feedback"
+                                                    style="margin-top:-1.25rem; display: block;">
                                                     {{ $message }}
                                                 </div>
                                                 @enderror
@@ -82,36 +84,44 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-4">
-                                        <div class="col-md-6 col-12 mt-3">
+                                    <div class="row my-4">
+                                        <div class="col-md-6 col-12">
                                             <label for="asset" class="mb-2">Asset</label>
                                             <div class="form-group @error('asset_id') is-invalid @enderror">
                                                 <select class="form-select choices" name="asset_id[]" id="assets">
                                                     <option value="" disabled>Select Asset</option>
 
                                                     @foreach ($assets as $asset)
-                                                    <option value="{{ $asset->id}}" data-stock="{{ $asset->stock_unit }}" @if (in_array($asset->id, old('asset_id', []))) selected @endif>
-                                                        {{ $asset->asset_name . ' - Stock ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}
+                                                    <option value="{{ $asset->id}}"
+                                                        data-stock="{{ $asset->stock_unit }}" @if (in_array($asset->id,
+                                                        old('asset_id', []))) selected @endif>
+                                                        {{ $asset->asset_name . ' - Stock ' . $asset->stock_unit . ' - '
+                                                        . $asset->vendor->company_name}}
                                                     </option>
 
                                                     @endforeach
 
                                                 </select>
                                                 @error('asset_id')
-                                                <div class="invalid-feedback" style="margin-top:-1.25rem; display: block;">
+                                                <div class="invalid-feedback"
+                                                    style="margin-top:-1.25rem; display: block;">
                                                     {{ $message }}
                                                 </div>
                                                 @enderror
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="unit_borrowed" class="mb-2">Units</label>
                                                 <div class="gap-3 col-12 d-flex align-items-center">
-                                                    <button type="button" class="btn btn-outline-primary decreaseButton">-</button>
-                                                    <input type="number"  name="unit_borrowed[]" class="numberInput text-center form-control form-control-lg @error('unit_borrowed') is-invalid @enderror" min="1" readonly>
-                                                    <button type="button" class="btn btn-outline-primary increaseButton">+</button>
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary decreaseButton">-</button>
+                                                    <input type="number" name="unit_borrowed[]"
+                                                        class="numberInput text-center form-control form-control-lg @error('unit_borrowed') is-invalid @enderror"
+                                                        min="1" readonly>
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary increaseButton">+</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,11 +145,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="row my-4 g-3">
-                                        <div class="col-md-6 col-12">
+                                    <div class="row my-4">
+                                        <div class="col-md-6 col-12 mt-3">
                                             <label for="date_receipt" class="form-label">Date Receipt</label>
-                                            <div class="input-group"
-                                                data-target-input="nearest">
+                                            <div class="input-group" data-target-input="nearest">
                                                 <input type="date"
                                                     class="form-control form-control-lg @error('date_receipt') is-invalid @enderror"
                                                     name="date_receipt" value="{{ old('date_receipt') }}" />
@@ -151,15 +160,40 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-6 col-12 mt-3">
                                             <label for="#" class="form-label mb-2">Photo Receipt</label>
-                                            <input class="form-control form-control-lg @error('photo_receipt') is-invalid @enderror" id="#" type="file" name="photo_receipt">
+                                            <input
+                                                class="form-control form-control-lg @error('photo_receipt') is-invalid @enderror"
+                                                id="#" type="file" name="photo_receipt">
 
                                             @error('photo_receipt')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                             @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-4 p-2 d-flex justify-content-between">
+                                        <div class="col-md-5 shadow p-3 @error('signature_loan') border border-danger @enderror">
+                                            <label for="signature_loan" class="form-label mt-3">Borrower Signature</label>
+                                                <canvas id="example"></canvas>
+                                                <button class="btn" type="button" onclick="sketchpad.undo();">Undo</button>
+                                                <button class="btn" type="button" onclick="sketchpad.redo();">Redo</button>
+                                                <input type="text"  name="signature_loan">
+
+                                            @error('signature_loan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="col-md-5 shadow">
+                                            <label for="" class="form-label mt-3">Admin Signature</label>
+                                            <div id="signature"></div>
+                                            <input type="hidden" name="signature_loan">
                                         </div>
                                     </div>
 
@@ -229,10 +263,6 @@
         });
     });
 </script>
-
-
-
-
 
 <script>
     var incrementalId = 2;
@@ -321,6 +351,23 @@
             });
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#signature').signature({
+            background: '#537188',
+            color: '#ffffff'
+        });
+    });
+
+    var sketchpad = new Sketchpad({
+        element: '#example',
+        width: 320,
+        height: 300,
+    });
+
+    console.log("test " + sketchpad.toJSON()); 
 </script>
 
 @endpush
