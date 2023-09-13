@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\LoanController;
 use App\Http\Controllers\dashboard\ReturnController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\getGeoController;
 use App\Http\Controllers\Location\CityController;
 use App\Http\Controllers\Location\DistrictController;
 use App\Http\Controllers\Location\VillageController;
@@ -53,9 +54,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
 });
 
 // Indonesia location
-Route::get('/cities/{province}', [CityController::class, 'getCityByProvince']);
-Route::get('/districts/{city}', [DistrictController::class, 'getDistrictByCity']);
-Route::get('/villages/{district}', [VillageController::class, 'getVillageByDistrict']);
+Route::get('/cities/{province}', [getGeoController::class, 'getCityByProvince']);
+Route::get('/districts/{city}', [getGeoController::class, 'getDistrictByCity']);
+Route::get('/villages/{district}', [getGeoController::class, 'getVillageByDistrict']);
 
 
 require __DIR__.'/auth.php';

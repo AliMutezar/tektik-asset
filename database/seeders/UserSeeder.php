@@ -28,6 +28,20 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'nik'  => '11223445566',
+                'division_id' => 1,
+                'role' => 'admin',
+                'name' => 'Restu Wibowo',
+                'position' => 'Web Developer',
+                'email' => 'restuwibowo16@gmail.com',
+                'phone' => '089631774995',
+                'email_verified_at' => now(),
+                'password' => bcrypt('password'),
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now()
             ]
 
         ];

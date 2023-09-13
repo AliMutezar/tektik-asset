@@ -31,10 +31,36 @@ class VendorController extends Controller
     public function create(): View
     {
         $title = 'Add Vendor';
-        $provinces = Province::all();
-        $cities = City::all();
-        $districts = District::all();
-        $villages = Village::all();
+        $provinces = Province::where('code', '>', 1)->orderBy('name')->pluck('name', 'code');
+        // dd($provinces);
+        $first_province = Province::where('code', '>', 1)
+            ->orderBy('name')
+            ->first();
+
+        $cities = City::where('code', '>', 1)
+            ->where('province_code', $first_province->code)
+            ->orderBy('name')
+            ->pluck('name', 'code');
+
+        $first_city = City::where('province_code', $first_province->code)
+            ->orderBy('name')
+            ->first();
+
+        $districts = District::where('code', '>', 1)
+            ->where('city_code', $first_city->code)
+            ->orderBy('name')
+            ->pluck('name', 'code');
+        // dd($districts);
+
+        $first_district = District::where('city_code', $first_city->code)
+            ->orderBy('name')
+            ->first();
+
+        $villages = Village::where('code', '>', 1)
+            ->where('district_code', $first_district->code)
+            ->orderBy('name')
+            ->pluck('name', 'code');
+            // dd($villages);
 
         return view('dashboard.vendor.create', compact('title', 'provinces', 'cities', 'districts', 'villages'));
     }
@@ -51,7 +77,6 @@ class VendorController extends Controller
 
         Vendor::create($data);
         return redirect()->route('vendors.index')->with('success', 'Data vendor has been inserted successfully');
-
     }
 
     /**
@@ -74,7 +99,7 @@ class VendorController extends Controller
         $districts = District::all();
         $villages = Village::all();
 
-        return view('dashboard.vendor.edit', compact('vendor','title', 'provinces', 'cities', 'villages'));
+        return view('dashboard.vendor.edit', compact('vendor', 'title', 'provinces', 'cities', 'villages'));
     }
 
     /**

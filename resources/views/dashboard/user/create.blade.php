@@ -134,7 +134,7 @@
                                                     <option value="" selected @readonly(true)>Choose Division</option>
 
                                                     @foreach ($divisions as $division)
-                                                    <option value="{{ $division->id }}" {{ old('division_id') != '' ? 'selected' : ''}}>{{ $division->name }}</option>
+                                                        <option value="{{ $division->id }}" {{ old('division_id') != '' ? 'selected' : ''}}>{{ $division->name }}</option>
                                                     @endforeach
                                                 </select>
 
