@@ -20,7 +20,7 @@ class VendorController extends Controller
      */
     public function index(): View
     {
-        $vendors = Vendor::all();
+        $vendors = Vendor::latest()->get();
         $title = 'Data Vendors';
         return view('dashboard.vendor.index', compact(['vendors', 'title']));
     }
@@ -94,12 +94,26 @@ class VendorController extends Controller
     {
         $title = 'Edit Vendor';
         $vendor = Vendor::where('id', $vendor->id)->first();
-        $provinces = Province::all();
-        $cities = City::all();
-        $districts = District::all();
-        $villages = Village::all();
+        $provinces = Province::orderBy('name')->pluck('name', 'code');
+        // dd($provinces);
+        $province_code = Vendor::where('id', $vendor->id)->where('province_code', $vendor->province_code)->pluck('province_code');
+        // dd($province_code);
+        $cities = City::where('province_code', $province_code)->orderBy('name')->pluck('name', 'code');
+        // dd($cities);
+        $cities_code = Vendor::where('id', $vendor->id)->where('city_code', $vendor->city_code)->pluck('city_code');
+        // dd($cities_code);
+        $districts = District::where('city_code', $cities_code)->orderBy('name')->pluck('name', 'code');
+        $district_code = Vendor::where('id', $vendor->id)->where('district_code', $vendor->district_code)->pluck('district_code');
+        $villages = Village::where('district_code', $district_code)->orderBy('name')->pluck('name', 'code');
+        // $province_code = Vendor::where('province_code', $vendor->province_code)->pluck('province_code');
+        // $provinces = Province::where('code', $vendor->province_code)->orderBy('name')->pluck('name', 'code');
+        // $cities = City::where('province_code', $province_code)->orderBy('name')->pluck('name', 'code');
+        // $cities_code = Vendor::where('city_code', $vendor->city_code)->pluck('city_code');
+        // $districts = District::where('city_code', $cities_code)->orderBy('name')->pluck('name', 'code');
+        // $district_code = Vendor::where('district_code', $vendor->district_code)->pluck('district_code');
+        // $villages = Village::where('district_code', $district_code)->orderBy('name')->pluck('name', 'code');
 
-        return view('dashboard.vendor.edit', compact('vendor', 'title', 'provinces', 'cities', 'villages'));
+        return view('dashboard.vendor.edit', compact('vendor', 'title', 'provinces', 'cities', 'districts', 'villages'));
     }
 
     /**

@@ -152,7 +152,8 @@
                                                 <label for="cities" class="mb-2">City</label>
                                                 <div class="form-group @error('city_code') is-invalid @enderror">
                                                     <select class="form-select form-select-md" name="city_code"
-                                                        id="city" onchange="getDistrict(this)" data-placeholder="Select City">
+                                                        id="city" onchange="getDistrict(this)"
+                                                        data-placeholder="Select City">
 
                                                         <option value="" selected @readonly(true)>
                                                             {{ __('Select City') }}</option>
@@ -175,7 +176,8 @@
                                                 <label for="cities" class="mb-2">District</label>
                                                 <fieldset class="form-group @error('district_code') is-invalid @enderror">
                                                     <select class="choices form-select form-select-md"
-                                                        name="district_code" id="district" onchange="getVillage(this)" data-placeholder="Select Disrict">
+                                                        name="district_code" id="district" onchange="getVillage(this)"
+                                                        data-placeholder="Select Disrict">
 
                                                         <option value="">{{ __('Select District') }}</option>
                                                         @foreach ($districts as $districtCode => $districtName)
@@ -199,9 +201,10 @@
                                                         id="village" data-placeholder="Select Village">
 
                                                         <option value="">{{ __('Select Village') }}</option>
-                                                        
+
                                                         @foreach ($villages as $villageCode => $villageName)
-                                                            <option value="{{ $villageCode }}">{{ $villageName }}</option>
+                                                            <option value="{{ $villageCode }}">{{ $villageName }}
+                                                            </option>
                                                         @endforeach
 
                                                     </select>
@@ -238,88 +241,11 @@
     {{-- <script src="{{ url('assets/js/id_location.js') }}"></script> --}}
 
     {{-- ajax trigger chained dropdown --}}
-    <script>
-        function getCities(province) {
-            console.log('getCities');
-            const code = province.value;
-            $.ajax({
-                type: 'GET',
-                url: '{{ url('cities') }}/' + code,
-                data: {
-                    province_code: code
-                },
-                success: function(response) {
-                    console.log(response);
-                    $('#city').empty();
+    @include('includes.chained_dropdown')
 
-                    for (i = 0; i < response.length; i++) {
-                        $('#city').append('<option value="' + response[i].code + '">' + response[i].name +
-                            '</option>');
-                    }
+    @include('includes.select2')
 
-                    $('#city').trigger('change');
-                }
-            });
-        }
-
-        function getDistrict(city) {
-            console.log('getDistrict');
-            const cityCode = city.value;
-            $.ajax({
-                type: 'GET',
-                url: '{{ url('districts') }}/' + cityCode,
-                data: {
-                    city_code: cityCode
-                },
-                success: function(response) {
-                    console.log(response);
-
-                    $('#district').empty();
-
-                    for (i = 0; i < response.length; i++) {
-                        $('#district').append('<option value="' + response[i].code + '">' + response[i].name +
-                            '</option>');
-                    }
-
-                    $('#district').trigger('change');
-                }
-
-            });
-        }
-
-        function getVillage(district) {
-            console.log('getVillage');
-            const districtCode = district.value;
-            $.ajax({
-                type: 'GET',
-                url: '{{ url('villages') }}/' + districtCode,
-                data: {
-                    district_code: districtCode
-                },
-                success: function(response) {
-                    console.log(response);
-
-                    $('#village').empty();
-
-                    for (i = 0; i < response.length; i++) {
-                        $('#village').append('<option value="' + response[i].code + '">' + response[i].name +
-                            '</option>');
-                    }
-
-                    $('#village').trigger('change');
-                }
-            });
-        }
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#province, #city, #district, #village').select2({
-                theme: 'bootstrap-5',
-                placeholder: $( this ).data( 'placeholder' ),
-            });
-        });
-        // const elements = document.querySelectorAll('#province, #city, #district, #village');
+    {{-- // const elements = document.querySelectorAll('#province, #city, #district, #village');
         // elements.forEach(element => {
         //     new Choices(element, {
         //         searchEnabled: true, // Mengaktifkan fitur pencarian
@@ -327,6 +253,5 @@
         //         itemSelectText: 'Press to Select', // Mengubah teks yang ditampilkan saat item dipilih (opsional)
         //         allowHTML: true,
         //     });
-        // });
-    </script>
+        // }); --}}
 @endpush
