@@ -44,8 +44,8 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="vendor" class="mb-2">Vendor Name</label>
                                             <div class="form-group @error('vendor_id') is-invalid @enderror">
-                                                <select class="choices form-select form-control-lg" name="vendor_id" id="vendor">
-                                                    <option value="" disabled>Select Vendor</option>
+                                                <select class="single-select2 form-select form-select form-control-lg" name="vendor_id" id="vendor" data-placeholder="Select Vendor">
+                                                    <option value="">Select Vendor</option>
 
                                                     @foreach ($vendors as $vendor)
                                                         <option value="{{ $vendor->id }}">{{ $vendor->company_name }}</option>
@@ -95,7 +95,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="condition" class="mb-2">Asset Condition</label>
                                             <div class="form-group @error('condition') is-invalid @enderror">
-                                                <select class="form-select" name="condition" id="condition">
+                                                <select class="form-select single-select2" name="condition" id="condition" data-placeholder="Select Condition">
                                                     <option value="" disabled selected>Select Condition</option>
                                                         <option value="good">Good</option>
                                                         <option value="not bad">Not Bad</option>
@@ -161,7 +161,8 @@
 
 @push('after-script')
    <script src="{{ url('assets/js/id_location.js') }}"></script>
-   <script>
+   @include('includes.select2')
+   {{-- <script>
         const elements = document.querySelectorAll('#vendor, #condition')
         elements.forEach(element => {
             new Choices(element, {
@@ -171,5 +172,5 @@
                 allowHTML: true
             });
         });
-   </script>
+   </script> --}}
 @endpush

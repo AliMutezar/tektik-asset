@@ -61,8 +61,8 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="loan_id" class="mb-2">Loan Code</label>
                                             <div class="form-group  @error('loan_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="loan_id" id="loan">
-                                                    <option value="" disabled>Select Loan Code</option>
+                                                <select class="form-select single-select2" name="loan_id" id="loan" data-placeholder="Select Loan Code">
+                                                    <option value="">Select Loan Code</option>
 
                                                     @foreach ($loans as $loan)
 
@@ -128,7 +128,9 @@
 @endsection
 
 @push('after-script')
-    <script>
+
+@include('includes.select2')
+    {{-- <script>
         const elements = document.querySelectorAll('#loan');
         elements.forEach(element => {
             new Choices(element, {
@@ -138,6 +140,6 @@
                 allowHTML: true,
             });
         });
-    </script>    
+    </script>     --}}
 
 @endpush

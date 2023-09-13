@@ -109,7 +109,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="role" class="mb-2">Role User</label>
                                             <div class="form-group @error('role') is-invalid @enderror">
-                                                <select class="choices role form-select" name="role">
+                                                <select class="single-select2 role form-select" name="role">
                                                     <option value="" selected disabled>Choose Role</option>
 
                                                     <option value="staff" {{ old('role', $user->role) == 'staff' ?
@@ -131,7 +131,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>
                                             <div class="form-group @error('division_id') is-invalid @enderror">
-                                                <select class="choices form-select" name="division_id">
+                                                <select class="form-select single-select2" name="division_id">
                                                     <option value="" selected @readonly(true)>Choose Division</option>
                                                         @foreach ($divisions as $division)
                                                         <option value="{{ $division->id }}" {{ old('division_id', $user->
@@ -210,4 +210,8 @@
 
     @include('includes.footer')
 </div>
+
+@push('after-script')
+    @include('includes.select2')
+@endpush
 @endsection

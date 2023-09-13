@@ -61,8 +61,8 @@
                                         <div class="col-md-6 col-12">
                                             <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
                                             <div class="form-group  @error('loan_user_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="loan_user_id" id="user">
-                                                    <option value="" disabled>Select User</option>
+                                                <select class="form-select single-select2" name="loan_user_id" id="user" data-placeholder="Select User">
+                                                    <option value="">Select User</option>
 
                                                     @foreach ($users as $user)
 
@@ -88,8 +88,8 @@
                                         <div class="col-md-6 col-12">
                                             <label for="asset" class="mb-2">Asset</label>
                                             <div class="form-group @error('asset_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="asset_id[]" id="assets">
-                                                    <option value="" disabled>Select Asset</option>
+                                                <select class="form-select single-select2" name="asset_id[]" id="assets" data-placeholder="Select Asset">
+                                                    <option value="">Select Asset</option>
 
                                                     @foreach ($assets as $asset)
                                                     <option value="{{ $asset->id}}"
@@ -214,6 +214,8 @@
 @endsection
 
 @push('after-script')
+
+@include('includes.select2')
 <script>
     $(document).ready(function() {
         const decreaseButtons = $('.decreaseButton');
@@ -341,16 +343,16 @@
             }
         });
 
-        const elements = document.querySelectorAll('#assets, #user');
-        elements.forEach(element => {
-            new Choices(element, {
-                searchEnabled: true,
-                searchChoices: true,
-                itemSelectText: 'Press to Select',
-                allowHTML: true,
-            });
-        });
-    });
+    //     const elements = document.querySelectorAll('#assets, #user');
+    //     elements.forEach(element => {
+    //         new Choices(element, {
+    //             searchEnabled: true,
+    //             searchChoices: true,
+    //             itemSelectText: 'Press to Select',
+    //             allowHTML: true,
+    //         });
+    //     });
+    // });
 </script>
 
 <script>

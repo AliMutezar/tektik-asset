@@ -131,7 +131,7 @@
                                             <div class="col-md-6 col-12 mt-3">
                                                 <label for="province" class="mb-2">Province</label>
                                                 <div class="form-group @error('province_code') is-invalid @enderror">
-                                                    <select class="form-select" name="province_code" id="province"
+                                                    <select class="form-select form-select-md single-select2" name="province_code" id="province"
                                                         onchange="getCities(this)">
                                                         <option value="" disabled>Select Province</option>
 
@@ -153,7 +153,7 @@
                                             <div class="col-md-6 col-12 mt-3">
                                                 <label for="cities" class="mb-2">City</label>
                                                 <div class="form-group @error('city_code') is-invalid @enderror">
-                                                    <select class="form-select form-select-md" name="city_code"
+                                                    <select class="form-select form-select-md single-select2" name="city_code"
                                                         id="city" onchange="getDistrict(this)">
                                                         @foreach ($cities as $cityCode => $cityName)
                                                             <option value="{{ $vendor->city_code }}"
@@ -173,7 +173,7 @@
                                             <div class="col-md-6 col-12 mt-3">
                                                 <label for="cities" class="mb-2">District</label>
                                                 <fieldset class="form-group @error('district_code') is-invalid @enderror">
-                                                    <select class="form-select form-select-md" name="district_code"
+                                                    <select class="form-select form-select-md single-select2" name="district_code"
                                                         id="district" onchange="getVillage(this)">
                                                         @foreach ($districts as $districtCode => $districtName)
                                                             <option value="{{ $vendor->district_code }}"
@@ -194,7 +194,7 @@
                                             <div class="col-md-6 col-12 mt-3">
                                                 <label for="cities" class="mb-2">Village</label>
                                                 <div class="form-group @error('village_code') is-invalid @enderror">
-                                                    <select class="form-select form-select-md" name="village_code"
+                                                    <select class="form-select form-select-md single-select2" name="village_code"
                                                         id="village">
                                                         @foreach ($villages as $villageCode => $villageName)
                                                             <option value="{{ $vendor->village_code }}"
