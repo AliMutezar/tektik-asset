@@ -30,7 +30,7 @@ class LoanController extends Controller
     public function create()
     {
         $assets = Asset::with('vendor')->where('stock_unit', '>', 0)->get();
-        $users = User::all(); 
+        $users = User::where('role', 'staff')->get();
         return view('dashboard.loan.create', compact('assets', 'users')); 
     }
 
@@ -39,6 +39,9 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request, Loan $loan)
     {
+
+        $validated = $request->validated();
+        // dd($validated);
 
         $assetsIds = $request->asset_id;
         $unitBorrowed = $request->unit_borrowed;
@@ -71,20 +74,18 @@ class LoanController extends Controller
             $loan->photo_receipt = $photoPath;
             $loan->save();
        }
-
-       dd($request->input('signature_loan'));
        
-       if ($request->has('signature_loan')) {
-            $signatureData = $request->input('signature_loan');
+    //    if ($request->has('signature_loan')) {
+    //         $signatureData = $request->input('signature_loan');
 
-            $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-            $signatureData = str_replace(' ', '+', $signatureData);
-            $signatureImage = base64_decode($signatureData);
+    //         $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+    //         $signatureData = str_replace(' ', '+', $signatureData);
+    //         $signatureImage = base64_decode($signatureData);
 
-            $loan = new Loan();
-            $loan->signature_loan = $signatureImage;
-            $loan->save();
-       }
+    //         $loan = new Loan();
+    //         $loan->signature_loan = $signatureImage;
+    //         $loan->save();
+    //    }
 
         foreach ($assetsIds as $index => $assetsId) {
             $asset = Asset::findOrFail($assetsId);
@@ -107,9 +108,16 @@ class LoanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Loan $loan)
     {
-        //
+        $record = Loan::with('assets', 'admin_user')->find($loan->id);
+        // dd($record);
+        $data['record'] = $record;
+        $data['title'] = 'Detail Asset Loan ' . $loan->user->name;
+        $data['active_breadcrumb'] = 'Show Asset Loan';
+
+        // dd($data['record']);
+        return view('dashboard.loan.show', $data);
     }
 
     /**
