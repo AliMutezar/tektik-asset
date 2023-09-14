@@ -39,7 +39,7 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request, Loan $loan)
     {
-
+        // dd($request->all());
         $assetsIds = $request->asset_id;
         $unitBorrowed = $request->unit_borrowed;
         $errors = [];
@@ -72,19 +72,19 @@ class LoanController extends Controller
             $loan->save();
        }
 
-       dd($request->input('signature_loan'));
+    //    dd($request->input('signature_loan'));
        
-       if ($request->has('signature_loan')) {
-            $signatureData = $request->input('signature_loan');
+    //    if ($request->has('signature_loan')) {
+    //         $signatureData = $request->input('signature_loan');
 
-            $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-            $signatureData = str_replace(' ', '+', $signatureData);
-            $signatureImage = base64_decode($signatureData);
+    //         $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+    //         $signatureData = str_replace(' ', '+', $signatureData);
+    //         $signatureImage = base64_decode($signatureData);
 
-            $loan = new Loan();
-            $loan->signature_loan = $signatureImage;
-            $loan->save();
-       }
+    //         $loan = new Loan();
+    //         $loan->signature_loan = $signatureImage;
+    //         $loan->save();
+    //    }
 
         foreach ($assetsIds as $index => $assetsId) {
             $asset = Asset::findOrFail($assetsId);

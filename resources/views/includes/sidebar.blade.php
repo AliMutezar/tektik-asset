@@ -76,6 +76,9 @@
                         <li class="submenu-item {{ request()->routeIs('assets*') ? 'active' : '' }}">
                             <a href="{{ route('asets.index') }}">Asset</a>
                         </li>
+                        <li class="submenu-item {{ request()->routeIs('index_category*') ? 'active' : '' }}">
+                            <a href="{{ route('index_category') }}">Category Asset</a>
+                        </li>
                     </ul>
                 </li>
                 @endcan

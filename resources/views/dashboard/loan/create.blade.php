@@ -174,7 +174,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row my-4 p-2 d-flex justify-content-between">
+                                    {{-- <div class="row my-4 p-2 d-flex justify-content-between">
                                         <div class="col-md-5 shadow p-3 @error('signature_loan') border border-danger @enderror">
                                             <label for="signature_loan" class="form-label mt-3">Borrower Signature</label>
                                                 <canvas id="example"></canvas>
@@ -195,7 +195,7 @@
                                             <div id="signature"></div>
                                             <input type="hidden" name="signature_loan">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 d-grid gap-2 mt-3 d-md-block mt-5">
                                         <button type="submit" class="btn btn-primary me-1">Save</button>
