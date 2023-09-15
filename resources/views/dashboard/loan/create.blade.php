@@ -174,6 +174,7 @@
                                         </div>
                                     </div>
 
+                                    {{-- Signature --}}
                                     {{-- <div class="row my-4 p-2 d-flex justify-content-between">
                                         <div class="col-md-5 shadow p-3 @error('signature_loan') border border-danger @enderror">
                                             <label for="signature_loan" class="form-label mt-3">Borrower Signature</label>

@@ -49,7 +49,7 @@
                                 <th>Photo</th>
                                 <th>Status</th>
                                 <th>Return Code</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,22 +85,21 @@
                                         <span class="badge bg-light-danger">Empty</span>
                                     @endif
                                 </td>
+
                                 <td>
                                     <div class="d-flex">
+                                        <a href="{{ route('loans.show', ['loan' => $loan->id]) }}" class="icon text-info me-3">
+                                            <i class="bi bi-eye" style="font-size: 1.2rem;"></i>Show
+                                        </a>
+
                                         <form action="{{ route('loans.destroy', $loan->id) }}" method="POST"
                                             id="deleteForm{{ $loan->id }}">
                                             @csrf
                                             @method('DELETE')
-
-                                            @if ($loan->return_code !== null)
-                                                <a href="#" class="icon text-danger d-none"
-                                                    onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
-                                                    style="font-size: 1.2rem;"></i>Delete</a>
-                                            @else
-                                                <a href="#" class="icon text-danger"
-                                                    onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
-                                                        style="font-size: 1.2rem;"></i>Delete</a>
-                                            @endif
+                                            <a href="#" class="icon text-danger"
+                                                onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
+                                                    style="font-size: 1.2rem;"></i>Delete
+                                            </a>
                                         </form>
                                     </div>
                                 </td>
@@ -111,7 +110,7 @@
                                         role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="galleryModalTitle{{ $loan->id }}">Our Gallery Example</h5>
+                                                <h5 class="modal-title" id="galleryModalTitle{{ $loan->id }}">Bukti Pinjaman</h5>
                                                 <button type="button" class="close" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
