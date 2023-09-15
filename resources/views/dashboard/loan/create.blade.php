@@ -61,7 +61,7 @@
                                         <div class="col-md-6 col-12">
                                             <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
                                             <div class="form-group  @error('loan_user_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="loan_user_id" id="user">
+                                                <select class="form-select single-select2" name="loan_user_id" id="user">
                                                     <option value="" disabled>Select User</option>
 
                                                     @foreach ($users as $user)
@@ -88,7 +88,7 @@
                                         <div class="col-md-6 col-12">
                                             <label for="asset" class="mb-2">Asset</label>
                                             <div class="form-group @error('asset_id') is-invalid @enderror">
-                                                <select class="form-select choices" name="asset_id[]" id="assets">
+                                                <select class="form-select single-select2" name="asset_id[]" id="assets" data-placeholder="Select Assets">
                                                     <option value="" disabled>Select Asset</option>
 
                                                     @foreach ($assets as $asset)
@@ -273,7 +273,7 @@
             newRowAsset += `
             <div class="form-group @error('asset_id') is-invalid @enderror" id="rowAsset${incrementalId}">
                 <label for="asset" class="mb-2">Asset ${incrementalId}</label>
-                <select class="form-select choices" name="asset_id[]" id="newAssets${incrementalId}">
+                <select class="form-select single-select2" name="asset_id[]" id="newAssets${incrementalId}" data-placeholder="Select Asset">
                     <option value="" disabled>Select Asset</option>
                     @foreach ($assets as $asset)
                         <option value="{{ $asset->id}}">{{ $asset->asset_name . ' - Stock ' . $asset->stock_unit . ' - ' . $asset->vendor->company_name}}</option>
@@ -296,13 +296,19 @@
 
             $('#newUnitRow').append(newRowUnit);
 
-            const element = document.querySelector(`#newAssets${incrementalId}`);
-            new Choices(element, {
-                searchEnabled: true,
-                searchChoices: true,
-                itemSelectText: 'Press to Select',
-                allowHTML: true,
-            });
+            $(`#newAssets${incrementalId}`).select2({
+            theme: 'bootstrap-5',
+            placeholder: $(this).data('placeholder'),
+            
+        });
+
+            // const element = document.querySelector(`#newAssets${incrementalId}`);
+            // new Choices(element, {
+            //     searchEnabled: true,
+            //     searchChoices: true,
+            //     itemSelectText: 'Press to Select',
+            //     allowHTML: true,
+            // });
 
             incrementalId++;
 
@@ -342,7 +348,7 @@
             }
         });
 
-        const elements = document.querySelectorAll('#assets, #user');
+        const elements = document.querySelectorAll();
         elements.forEach(element => {
             new Choices(element, {
                 searchEnabled: true,
@@ -370,5 +376,7 @@
 
     console.log("test " + sketchpad.toJSON()); 
 </script>
+
+@include('includes.select2')
 
 @endpush

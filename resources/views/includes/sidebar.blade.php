@@ -56,13 +56,13 @@
                 </li>
 
 
-                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }} has-sub">
+                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'aset*', 'index_category*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
 
-                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'asset*') ? 'active' : '' }}">
+                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'aset*', 'index_category*') ? 'active' : '' }}">
                         <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}">Employees</a>
                         </li>
@@ -73,11 +73,11 @@
                         <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
                             <a href="{{ route('vendors.index') }}">Vendors</a>
                         </li>
-                        <li class="submenu-item {{ request()->routeIs('asets*') ? 'active' : '' }}">
-                            <a href="{{ route('asets.index') }}">Asset</a>
-                        </li>
                         <li class="submenu-item {{ request()->routeIs('index_category*') ? 'active' : '' }}">
                             <a href="{{ route('index_category') }}">Category Asset</a>
+                        </li>
+                        <li class="submenu-item {{ request()->routeIs('asets*') ? 'active' : '' }}">
+                            <a href="{{ route('asets.index') }}">Asset</a>
                         </li>
                     </ul>
                 </li>

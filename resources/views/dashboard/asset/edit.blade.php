@@ -45,7 +45,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="vendor" class="mb-2">Vendor Name</label>
                                             <div class="form-group @error('vendor_id') is-invalid @enderror">
-                                                <select class="choices form-select" name="vendor_id">
+                                                <select class="single-select2 form-select" name="vendor_id">
                                                     <option value="" disabled>Select Vendor</option>
 
                                                     @foreach ($vendors as $vendor)
@@ -54,6 +54,25 @@
 
                                                 </select>
                                                 @error('vendor_id')
+                                                <div class="invalid-feedback" style="display: block; margin-top: -1.25rem;">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12 mt-3">
+                                            <label for="category" class="mb-2">Category</label>
+                                            <div class="form-group @error('category_id') is-invalid @enderror">
+                                                <select class="single-select2 form-select" name="category_id">
+                                                    <option value="" disabled>Select Vendor</option>
+
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}" {{ old('vendor_id', $asset->category_id) == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
+                                                    @endforeach
+
+                                                </select>
+                                                @error('category_id')
                                                 <div class="invalid-feedback" style="display: block; margin-top: -1.25rem;">
                                                     {{ $message }}
                                                 </div>
@@ -96,7 +115,7 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="condition" class="mb-2">Asset Condition</label>
                                             <div class="form-group @error('condition') is-invalid @enderror">
-                                                <select class="form-select" name="condition" id="province">
+                                                <select class="form-select single-select2" name="condition" id="province">
                                                     <option value="" disabled selected>Select Condition</option>
                                                         <option value="good" {{ old('condition', $asset->condition) == 'good' ? 'selected' : '' }}>Good</option>
                                                         <option value="not bad" {{ old('condition', $asset->condition) == 'not bad' ? 'selected' : '' }}>Not Bad</option>
@@ -162,4 +181,5 @@
 
 @push('after-script')
    <script src="{{ url('assets/js/id_location.js') }}"></script>
+   @include('includes.select2')
 @endpush

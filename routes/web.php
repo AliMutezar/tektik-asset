@@ -52,6 +52,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('asets', AssetController::class);
     Route::resource('loans', LoanController::class)->except(['edit']);
     Route::resource('returns', ReturnController::class)->except(['edit', 'destroy']);
+
+    //category
     Route::get('/category', [CategoryAssetController::class, 'index'])->name('index_category');
     Route::post('/category', [CategoryAssetController::class, 'store'])->name('store_category');
     Route::put('/category/{id}', [CategoryAssetController::class, 'update'])->name('update_category');

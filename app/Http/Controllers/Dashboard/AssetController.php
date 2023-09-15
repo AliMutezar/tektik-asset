@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAssetRequest;
 use App\Models\Asset;
+use App\Models\CategoryAsset;
 use App\Models\Vendor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -55,8 +56,9 @@ class AssetController extends Controller
     {
         $title = 'Add Asset';
         $vendors = Vendor::all();
+        $categories = CategoryAsset::all();
 
-        return view('dashboard.asset.create', compact(['title', 'vendors']));
+        return view('dashboard.asset.create', compact(['title', 'vendors', 'categories']));
     }
 
     /**
@@ -85,7 +87,8 @@ class AssetController extends Controller
         $title = 'Edit Asset';
         $asset = Asset::find($id);
         $vendors = Vendor::all();
-        return view('dashboard.asset.edit', compact(['title', 'asset', 'vendors']));
+        $categories = CategoryAsset::all();
+        return view('dashboard.asset.edit', compact(['title', 'asset', 'vendors', 'categories']));
     }
 
     /**
