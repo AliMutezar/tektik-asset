@@ -28,4 +28,8 @@ class Asset extends Model
     // {
     //     return $this->hasMany(AssetLoan::class, 'asset_id');
     // }
+
+    public function categoryAsset(): BelongsTo {
+        return $this->belongsTo(CategoryAsset::class);
+    }
 }

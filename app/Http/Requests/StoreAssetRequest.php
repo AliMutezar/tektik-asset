@@ -23,6 +23,7 @@ class StoreAssetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => ['required', 'integer'],
             'vendor_id' => ['required', 'integer'],
             'asset_name' => ['required', 'string', 'max:255'],
             'serial_number' => ['required'],

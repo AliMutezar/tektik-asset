@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AssetController;
+use App\Http\Controllers\Dashboard\CategoryAssetController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DivisionController;
 use App\Http\Controllers\Dashboard\LoanController;
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function() {
     Route::resource('asets', AssetController::class);
     Route::resource('loans', LoanController::class)->except(['edit']);
     Route::resource('returns', ReturnController::class)->except(['edit', 'destroy']);
+    Route::get('/category', [CategoryAssetController::class, 'index'])->name('index_category');
+    Route::post('/category', [CategoryAssetController::class, 'store'])->name('store_category');
+    Route::put('/category/{id}', [CategoryAssetController::class, 'update'])->name('update_category');
+    Route::delete('/category/{id}', [CategoryAssetController::class, 'destroy'])->name('delete_category');
 });
 
 // Indonesia location
