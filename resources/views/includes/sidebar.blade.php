@@ -73,7 +73,7 @@
                         <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
                             <a href="{{ route('vendors.index') }}">Vendors</a>
                         </li>
-                        <li class="submenu-item {{ request()->routeIs('assets*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->routeIs('asets*') ? 'active' : '' }}">
                             <a href="{{ route('asets.index') }}">Asset</a>
                         </li>
                         <li class="submenu-item {{ request()->routeIs('index_category*') ? 'active' : '' }}">
