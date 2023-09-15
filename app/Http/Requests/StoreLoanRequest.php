@@ -22,19 +22,14 @@ class StoreLoanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'loan_code' => ['required', 'unique:loans,loan_code'],
-            // 'asset_id' => ['required', 'array'],
-            // 'asset_id.*' => 'exists:assets,id',
-            // 'unit_borrowed' => ['required', 'array'],
-            // 'unit_borrowed.*' => 'numeric|min:0',
-            // 'loan_user_id' => ['required', 'integer'],
-            'signature_loan' => ['required'],
-            // 'admin_user_id' => ['required'],
-            // 'signature_admin' => ['nullable', 'string'],
-            // 'date_receipt' => ['required', 'date'],
-            // 'photo_receipt' => ['required', 'image', 'max:1048'],
-            // 'status' => ['required', 'boolean'],
-            // 'return_code' => ['nullable', 'unique:loans,return_code']
+            'loan_code' => ['required', 'unique:loans,loan_code'],
+            'asset_id' => ['required', 'array'],
+            'asset_id.*' => 'exists:assets,id',
+            'unit_borrowed' => ['required', 'array'],
+            'unit_borrowed.*' => 'numeric|min:0',
+            'loan_user_id' => ['required', 'integer'],
+            'date_receipt' => ['required', 'date'],
+            'photo_receipt' => ['required', 'image', 'max:1048'],
         ];
     }
 }
