@@ -20,7 +20,11 @@ class AssetController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $assets = Asset::with('vendor')->get();
+            
+            $assets = Asset::with(['vendor', 'categoryAsset'])->select([
+                'id', 'vendor_id', 'asset_name', 'condition', 'price_unit', 'stock_unit',
+            ])->get();
+            // dd($assets);
             return DataTables::of($assets)
                 ->addColumn('action', function ($assets) {
                     $editUrl = route('asets.edit', $assets->id);
