@@ -25,6 +25,7 @@ class StoreLoanRequest extends FormRequest
             'loan_code' => ['required', 'unique:loans,loan_code'],
             'asset_id' => ['required', 'array'],
             'asset_id.*' => 'exists:assets,id',
+            'serial_number' => ['nullable', 'array'],
             'unit_borrowed' => ['required', 'array'],
             'unit_borrowed.*' => 'numeric|min:0',
             'loan_user_id' => ['required', 'integer'],

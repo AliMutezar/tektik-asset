@@ -96,7 +96,8 @@ class LoanController extends Controller
                 AssetLoan::create([
                     'loan_id' => $loan->id,
                     'asset_id' => $assetsId,
-                    'unit_borrowed' => $unitBorrowed[$index]
+                    'unit_borrowed' => $unitBorrowed[$index],
+                    'serial_number' => $request->serial_number[$index],
                 ]);
             }
         }
