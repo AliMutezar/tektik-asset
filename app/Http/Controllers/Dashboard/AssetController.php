@@ -22,11 +22,12 @@ class AssetController extends Controller
     {
         if($request->ajax()) {
             
-            $assets = Asset::with(['vendor', 'categoryAsset'])->select([
-                'id', 'vendor_id', 'asset_name', 'condition', 'price_unit', 'stock_unit',
-            ])->get();
+            $assets = Asset::with(['vendor', 'categoryAsset'])->latest()->get();
             // dd($assets);
             return DataTables::of($assets)
+                ->addColumn('category_asset_name', function($assets) {
+                    return $assets->categoryAsset->name;
+                })
                 ->addColumn('action', function ($assets) {
                     $editUrl = route('asets.edit', $assets->id);
                     $deleteUrl = route('asets.destroy', $assets->id);
@@ -44,7 +45,7 @@ class AssetController extends Controller
                     ';
 
 
-                })->rawColumns(['action'])->make(true);
+                })->rawColumns(['category_asset_name','action'])->make(true);
 
         }
 
