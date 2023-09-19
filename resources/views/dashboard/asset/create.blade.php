@@ -62,8 +62,8 @@
 
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="category" class="mb-2">Category</label>
-                                            <div class="form-group @error('category_id') is-invalid @enderror">
-                                                <select class="single-select2 form-select form-select form-control-lg" name="category_id" id="category" data-placeholder="Select Category">
+                                            <div class="form-group @error('category_asset_id') is-invalid @enderror">
+                                                <select class="single-select2 form-select form-select form-control-lg" name="category_asset_id" id="category" data-placeholder="Select Category">
                                                     <option value="">Select Category</option>
 
                                                     @foreach ($categories as $category)
@@ -71,7 +71,7 @@
                                                     @endforeach
 
                                                 </select>
-                                                @error('category_id')
+                                                @error('category_asset_id')
                                                 <div class="invalid-feedback" style="display: block; margin-top: -1.25rem;">
                                                     {{ $message }}
                                                 </div>
