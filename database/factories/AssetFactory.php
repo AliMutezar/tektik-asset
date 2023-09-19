@@ -18,6 +18,7 @@ class AssetFactory extends Factory
     {
         return [
             'vendor_id' => fake()->numberBetween(1, 8),
+            'category_asset_id' => 1,
             'asset_name' => fake()->randomElement(['Laptop HP', 'MacBook', 'Camera', 'Drone', 'Monitor', 'Mouse']),
             'serial_number' => fake()->randomNumber(5, true),
             'condition' => fake()->randomElement(['good', 'not bad', 'bad']),

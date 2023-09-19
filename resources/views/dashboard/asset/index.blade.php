@@ -41,9 +41,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                {{-- <th>Category</th> --}}
                                 <th>Vendor</th>
                                 <th>Asset</th>
-                                <th>No. Serial</th>
                                 <th>Condition</th>
                                 <th>Price</th>
                                 <th>Stock</th>
@@ -53,9 +53,9 @@
                         <tbody></tbody>
                         <tfoot>
                             <th></th>
+                            {{-- <th>Category</th> --}}
                             <th>Vendor</th>
                             <th>Asset</th>
-                            <th>No. Serial</th>
                             <th>Condition</th>
                             <th>Price</th>
                             <th>Stock</th>
@@ -76,11 +76,11 @@
 @push('after-script')
 <script>
     $(document).ready(function () {
-        // set up text input to each footer cell
-        $('#asset-table tfoot th:not(:first-child, :last-child)').each(function () {
-            var title = $(this).text();
-            $(this).html(' <input type="text" class="form-control" style="width: 150px;" placeholder="Search ' + title + '" />');
-        });
+        // set up text input to each footer cell except first and last child
+        // $('#asset-table tfoot th:not(:first-child, :last-child)').each(function () {
+        //     var title = $(this).text();
+        //     $(this).html(' <input type="text" class="form-control" style="width: 150px;" placeholder="Search ' + title + '" />');
+        // });
 
         var table = $('#asset-table').DataTable({
             scrollX:true,
@@ -100,9 +100,9 @@
                     }
                 },
 
+                // { data: 'categoryAsset.id', name: 'categoryAsset.id'},
                 { data: 'vendor.company_name', name: 'vendor.company_name' },
-                { data: 'asset_name', name: 'asset_name' },
-                { data: 'serial_number', name: 'serial_number', className: 'text-center'},
+                { data: 'asset_name', name: 'asset_name' },,
 
                 {
                     data: 'condition', name: 'condition',
