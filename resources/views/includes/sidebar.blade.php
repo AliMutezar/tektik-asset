@@ -56,13 +56,13 @@
                 </li>
 
 
-                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'asets*') ? 'active' : '' }} has-sub">
+                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
 
-                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'asets*') ? 'active' : '' }}">
+                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*',) ? 'active' : '' }}">
                         <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}">Employees</a>
                         </li>
