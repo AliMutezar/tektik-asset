@@ -67,9 +67,9 @@
                                                     @foreach ($record->assets as $data)
                                                     <tr>
                                                         <td>{{ $data->asset_name }}</td>
-                                                        <td> 
-                                                            @if ($data->pivot->serial_number == null)
-                                                            <b>-</b> 
+                                                        <td>
+                                                            @if(!$data->pivot->serial_number)
+                                                            <b> - </b>
                                                             @else
                                                             {{ $data->pivot->serial_number }}
                                                             @endif
