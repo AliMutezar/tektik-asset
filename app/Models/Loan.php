@@ -27,7 +27,7 @@ class Loan extends Model
     public function assets(): BelongsToMany
     {
         return $this->belongsToMany(Asset::class, 'asset_loans', 'loan_id', 'asset_id')
-                        ->withPivot('unit_borrowed')
+                        ->withPivot('unit_borrowed', 'serial_number')
                         ->withTimestamps();
     }
 

@@ -26,7 +26,6 @@ class StoreAssetRequest extends FormRequest
             'category_asset_id' => ['required', 'integer'],
             'vendor_id' => ['required', 'integer'],
             'asset_name' => ['required', 'string', 'max:255'],
-            'serial_number' => ['required'],
             'condition' => ['required', Rule::in(['good', 'not bad', 'bad'])],
             'price_unit' => ['required', 'numeric', 'min:0'],
             'stock_unit' => ['required', 'integer', 'min:0']

@@ -67,7 +67,7 @@
                                                     @foreach ($record->assets as $data)
                                                     <tr>
                                                         <td>{{ $data->asset_name }}</td>
-                                                        <td>kosong</td>
+                                                        <td>{{ $data->pivot->serial_number }}</td>
                                                         <td>{{ $data->vendor->company_name }}</td>
                                                         <td>{{ $data->pivot->unit_borrowed }}</td>
                                                     </tr>
@@ -84,7 +84,7 @@
                                         <div class="input-group" data-target-input="nearest">
                                             <input type="date"
                                                 class="form-control form-control-lg @error('date_receipt') is-invalid @enderror"
-                                                name="date_receipt" value="{{ old('date_receipt') }}" />
+                                                name="date_receipt" value="{{ old('date_receipt', $record->date_receipt) }}" disabled/>
 
                                             @error('date_receipt')
                                             <div class="invalid-feedback">
@@ -93,17 +93,8 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12 mt-3">
-                                        <label for="#" class="form-label mb-2">Photo Receipt</label>
-                                        <input
-                                            class="form-control form-control-lg @error('photo_receipt') is-invalid @enderror"
-                                            id="#" type="file" name="photo_receipt">
-
-                                        @error('photo_receipt')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
+                                    <div class="col-md-6 col-12 text-center">
+                                        <img src="{{ asset('storage/'. $record->photo_receipt) }}" alt="photo receipt" width="50%" height="auto">
                                     </div>
                                 </div>
 

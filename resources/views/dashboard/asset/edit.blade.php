@@ -96,22 +96,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-12 my-3">
-                                            <div class="form-group">
-                                                <label for="serial_number" class="mb-2">Serial Number</label>
-                                                <input type="number"
-                                                    class="form-control form-lg @error('serial_number') is-invalid @enderror"
-                                                    placeholder="Asset Serial Number" name="serial_number"
-                                                    value="{{ old('serial_number', $asset->serial_number ?? '') }}" min="0">
-
-                                                @error('serial_number')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="condition" class="mb-2">Asset Condition</label>
                                             <div class="form-group @error('condition') is-invalid @enderror">

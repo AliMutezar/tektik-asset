@@ -21,13 +21,10 @@ class Asset extends Model
 
     public function loans(): BelongsToMany
     {
-        return $this->belongsToMany(Loan::class, 'asset_loans');
+        return $this->belongsToMany(Loan::class);
     }
 
-    // public function assetLoans()
-    // {
-    //     return $this->hasMany(AssetLoan::class, 'asset_id');
-    // }
+   
 
     public function categoryAsset(): BelongsTo {
         return $this->belongsTo(CategoryAsset::class);

@@ -19,7 +19,8 @@ class LoanController extends Controller
      */
     public function index(): View
     {       
-        $loans = Loan::with(['user'])->get();
+        $loans = Loan::with(['user', 'admin_user'])->get();
+        
         $title = "Data Asset Loans";
         return view('dashboard.loan.index', compact('loans', 'title'));
     }
@@ -111,8 +112,8 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        $record = Loan::with('assets', 'admin_user')->find($loan->id);
-        // dd($record);
+        $record = Loan::with('assets')->find($loan->id);
+        // dd($record->admin_user);
         $data['record'] = $record;
         $data['title'] = 'Detail Asset Loan ' . $loan->user->name;
         $data['active_breadcrumb'] = 'Show Asset Loan';
@@ -144,6 +145,7 @@ class LoanController extends Controller
     {   
         $loanId = $loan->id;
         $assetLoanData = AssetLoan::where('loan_id', $loanId)->get();
+        
 
         foreach ($assetLoanData as $assetLoan) {
             $asset = Asset::findOrFail($assetLoan->asset_id);

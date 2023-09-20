@@ -43,6 +43,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Loan Code</th>
+                                <th>Admin</th>
                                 <th>Borrower</th>
                                 <th>Borrowed units</th>
                                 <th>Date Receipt</th>
@@ -57,6 +58,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $loan->loan_code }}</td>
+                                <td>{{ $loan->admin_user->name}}</td>
                                 <td>{{ $loan->user->name }}</td>
                                 <td class="text-center">{{ $loan->assets->sum('pivot.unit_borrowed') }}</td>
                                 <td>{{ $loan->date_receipt }}</td>
