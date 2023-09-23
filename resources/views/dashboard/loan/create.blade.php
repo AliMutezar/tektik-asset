@@ -64,7 +64,7 @@
                                                     <select
                                                         class="form-select single-select2 @error('loan_user_id') is-invalid @enderror"
                                                         name="loan_user_id" id="user" data-placeholder="Select User">
-                                                        <option value="" disabled>Select User</option>
+                                                        <option value="">Select User</option>
 
                                                         @foreach ($users as $user)
                                                             <option value="{{ $user->id }}"
@@ -91,7 +91,7 @@
                                                     <select
                                                         class="form-select single-select2 @error('asset_id') is-invalid @enderror"
                                                         name="asset_id[]" id="assets" data-placeholder="Select Assets">
-                                                        <option value="" disabled>Select Asset</option>
+                                                        <option value="">Select Asset</option>
 
                                                         @foreach ($assets as $asset)
                                                             <option value="{{ $asset->id }}"
@@ -194,35 +194,52 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        {{-- Signature --}}
+                                        <div class="row my-4 p-2 d-flex justify-content-between">
+                                            <div class="col-md-5 shadow p-3">
+                                                <label class="form-label" for="signature_loan ">Admin Signature:</label>
+                                                <br />
+                                                <div id="signAdmin" class=""
+                                                    @error('signature_admin') border border-danger @enderror></div>
+                                                <br />
+                                                <button id="clearAdmin" class="btn btn-danger btn-sm">Clear
+                                                    Signature</button>
+                                                <textarea id="signatureAdmin" name="signature_admin" style="display: none;"></textarea>
+
+                                                @error('signature_admin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+
+                                            </div>
+
+                                            <div class="col-md-5 shadow p-3">
+                                                <label class="form-label" for="signature_loan ">Borrower
+                                                    Signature:</label>
+                                                <br />
+                                                <div id="signBorrower"
+                                                    @error('signature_admin') border border-danger @enderror></div>
+                                                <br />
+                                                <button id="clearBorrower" class="btn btn-danger btn-sm">Clear
+                                                    Signature</button>
+                                                <textarea id="signatureBorrower" name="signature_borrower" style="display: none;"></textarea>
+
+                                                @error('signature_admin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+
                                         <div class="col-12 d-grid gap-2 mt-3 d-md-block mt-5">
                                             <button type="submit" class="btn btn-primary me-1">Save</button>
                                         </div>
                                 </div>
 
 
-                                {{-- Signature --}}
-                                {{-- <div class="row my-4 p-2 d-flex justify-content-between">
-                                        <div class="col-md-5 shadow p-3 @error('signature_loan') border border-danger @enderror">
-                                            <label for="signature_loan" class="form-label mt-3">Borrower Signature</label>
-                                                <canvas id="example"></canvas>
-                                                <button class="btn" type="button" onclick="sketchpad.undo();">Undo</button>
-                                                <button class="btn" type="button" onclick="sketchpad.redo();">Redo</button>
-                                                <input type="text"  name="signature_loan">
-
-                                            @error('signature_loan')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-
-                                        </div>
-
-                                        <div class="col-md-5 shadow">
-                                            <label for="" class="form-label mt-3">Admin Signature</label>
-                                            <div id="signature"></div>
-                                            <input type="hidden" name="signature_loan">
-                                        </div>
-                                    </div> --}}
 
 
                                 </form>
@@ -418,6 +435,32 @@
 
         console.log("test " + sketchpad.toJSON());
     </script>
+
+    <script type="text/javascript">
+        var signAdmin = $('#signAdmin').signature({
+            syncField: '#signatureAdmin',
+            syncFormat: 'PNG'
+        });
+        $('#clearAdmin').click(function(e) {
+            e.preventDefault();
+            signAdmin.signature('clear');
+            $("#signatureAdmin").val('');
+        });
+    </script>
+
+<script type="text/javascript">
+    var signBorrower = $('#signBorrower').signature({
+        syncField: '#signatureBorrower',
+        syncFormat: 'PNG'
+    });
+    $('#clearBorrower').click(function(e) {
+        e.preventDefault();
+        signBorrower.signature('clear');
+        $("#signatureBorrower").val('');
+    });
+</script>
+
+   
 
     @include('includes.select2')
 @endpush

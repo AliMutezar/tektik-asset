@@ -10,6 +10,7 @@
 
     @include('includes.style')
     <link rel="stylesheet" href="{{ url('assets/css/shared/iconly.css') }}">
+    </style>
 </head>
 
 <body>

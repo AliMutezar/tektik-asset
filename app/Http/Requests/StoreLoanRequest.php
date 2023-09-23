@@ -28,9 +28,11 @@ class StoreLoanRequest extends FormRequest
             'serial_number' => ['nullable', 'array'],
             'unit_borrowed' => ['required', 'array'],
             'unit_borrowed.*' => 'numeric|min:0',
+            'signature_admin' => ['required'],
+            // 'signature_borrower' => ['required'],
             'loan_user_id' => ['required', 'integer'],
             'date_receipt' => ['required', 'date'],
-            'photo_receipt' => ['required', 'image', 'max:1048'],
+            'photo_receipt' => ['required', 'image', 'file', 'mimes:png,jpg,jpeg,webp', 'max:1048'],
         ];
     }
 }

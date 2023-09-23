@@ -118,8 +118,9 @@
                                                     <i data-feather="x"></i>
                                                 </button>
                                             </div>
+
                                             <div class="modal-body">
-                                                <img class="d-block w-100" src="{{ asset('storage/' . $loan->photo_receipt ) }}">
+                                                <img class="d-block w-100" src="{{ asset('storage/photo_receipt/' . $loan->photo_receipt ) }}">
                                             </div>
 
                                             <div class="modal-footer">

@@ -45,6 +45,7 @@
                                                 value="{{ $record->loan_code }}" @readonly(true)>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="loan_user_id" class="mb-2">Employee Borrowed</label>
@@ -52,6 +53,7 @@
                                                 value="{{ $record->user->name }}" @readonly(true)>
                                         </div>
                                     </div>
+
                                     <div class="col-12">
                                         <div class="table-responsive">
                                             <table class="table table-lg">
@@ -100,10 +102,22 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12 text-center">
-                                        <img src="{{ asset('storage/'. $record->photo_receipt) }}" alt="photo receipt" width="50%" height="auto">
+                                        <img src="{{ asset('storage/photo_receipt/'. $record->photo_receipt) }}" alt="photo receipt" width="50%" height="auto">
                                     </div>
                                 </div>
+                                <div class="row my-4 p-2 d-flex justify-content-between">
+                                    <div
+                                        class="col-md-5 shadow p-3">
+                                       <h6>Admin</h6>
+                                       <img src="{{ asset('storage/signature/admin/'. $record->signature_admin) }}" alt="">
 
+                                    </div>
+
+                                    <div class="col-md-5 shadow p-3">
+                                        <h6>Borrower</h6>
+                                       <img src="{{ asset('storage/signature/borrower/'. $record->signature_borrower) }}" alt="">
+                                    </div>
+                                </div>
                                 {{-- Signature --}}
                                 {{-- <div class="row my-4 p-2 d-flex justify-content-between">
                                     <div

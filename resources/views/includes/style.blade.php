@@ -27,3 +27,19 @@ href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.c
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
+<style>
+    .kbw-signature {
+        width: 100%;
+        height: 200px;
+    }
+    
+    #signAdmin canvas{
+        width: 100% !important;
+        height: auto;
+    }
+    #sign-user canvas {
+        width: 100% !important;
+        height: auto;
+    }   
+</style>
