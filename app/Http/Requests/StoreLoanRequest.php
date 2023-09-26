@@ -29,7 +29,7 @@ class StoreLoanRequest extends FormRequest
             'unit_borrowed' => ['required', 'array'],
             'unit_borrowed.*' => 'numeric|min:0',
             'signature_admin' => ['required'],
-            // 'signature_borrower' => ['required'],
+            'signature_borrower' => ['required'],
             'loan_user_id' => ['required', 'integer'],
             'date_receipt' => ['required', 'date'],
             'photo_receipt' => ['required', 'image', 'file', 'mimes:png,jpg,jpeg,webp', 'max:1048'],

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Storage;
 
 class Loan extends Model
 {
@@ -41,5 +42,24 @@ class Loan extends Model
         // argument kedua, foreign key di table asset_returns
         // argument ketiga, primary key di table parent, (loans)
         return $this->hasOne(AssetReturn::class);
+    }
+
+    public function signature($request, $fileName, $path) 
+    {
+        $image_parts = explode(";base64,", $request);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+
+        $image_base64 = base64_decode($image_parts[1]);
+        
+        $fileName = uniqid(). '.' . $image_type;
+
+        Storage::put($path . $fileName, $image_base64);
+
+        return [
+            'request' => $request,
+            'file_name' => $fileName,
+            'file_path' => $path . $fileName,
+        ];
     }
 }

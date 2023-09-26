@@ -24,9 +24,9 @@ class StoreReturnRequest extends FormRequest
         return [
             'return_code' => ['required', 'unique:asset_returns,return_code'],
             'loan_id' => ['required'],
-            // 'signature_returner' => ['nullable', 'string'],
-            // 'admin_user_id' => ['required']
-            // 'signature_admin' => ['nullable', 'string'],
+            'signature_returner' => ['required'],
+            // 'admin_user_id' => ['required'],
+            'signature_admin' => ['required'],
             'date_returned' => ['required', 'date'],
             'photo_returned' => ['required', 'image', 'max:1048'],
         ];

@@ -109,13 +109,13 @@
                                     <div
                                         class="col-md-5 shadow p-3">
                                        <h6>Admin</h6>
-                                       <img src="{{ asset('storage/signature/admin/'. $record->signature_admin) }}" alt="">
+                                       <img src="{{ asset('storage/signature_loan/admin/'. $record->signature_admin) }}" alt="">
 
                                     </div>
 
                                     <div class="col-md-5 shadow p-3">
                                         <h6>Borrower</h6>
-                                       <img src="{{ asset('storage/signature/borrower/'. $record->signature_borrower) }}" alt="">
+                                       <img src="{{ asset('storage/signature_loan/borrower/'. $record->signature_borrower) }}" alt="">
                                     </div>
                                 </div>
                                 {{-- Signature --}}

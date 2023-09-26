@@ -196,8 +196,8 @@
                                         </div>
                                         {{-- Signature --}}
                                         <div class="row my-4 p-2 d-flex justify-content-between">
-                                            <div class="col-md-5 shadow p-3">
-                                                <label class="form-label" for="signature_loan ">Admin Signature:</label>
+                                            <div class="col-md-5 shadow p-3 mb-3">
+                                                <label class="form-label" for="signature_admin ">Admin Signature:</label>
                                                 <br />
                                                 <div id="signAdmin" class=""
                                                     @error('signature_admin') border border-danger @enderror></div>
@@ -214,8 +214,8 @@
 
                                             </div>
 
-                                            <div class="col-md-5 shadow p-3">
-                                                <label class="form-label" for="signature_loan ">Borrower
+                                            <div class="col-md-5 shadow p-3 mb-3">
+                                                <label class="form-label" for="signature_borrower">Borrower
                                                     Signature:</label>
                                                 <br />
                                                 <div id="signBorrower"
@@ -448,19 +448,19 @@
         });
     </script>
 
-<script type="text/javascript">
-    var signBorrower = $('#signBorrower').signature({
-        syncField: '#signatureBorrower',
-        syncFormat: 'PNG'
-    });
-    $('#clearBorrower').click(function(e) {
-        e.preventDefault();
-        signBorrower.signature('clear');
-        $("#signatureBorrower").val('');
-    });
-</script>
+    <script type="text/javascript">
+        var signBorrower = $('#signBorrower').signature({
+            syncField: '#signatureBorrower',
+            syncFormat: 'PNG'
+        });
+        $('#clearBorrower').click(function(e) {
+            e.preventDefault();
+            signBorrower.signature('clear');
+            $("#signatureBorrower").val('');
+        });
+    </script>
 
-   
+
 
     @include('includes.select2')
 @endpush

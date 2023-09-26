@@ -79,7 +79,7 @@ class LoanController extends Controller
 
         $signature_nameAdmin = uniqid() . '_'. $admin_name . '.' . $image_typeAdmin;
         
-        Storage::put('public/signature/admin/'. $signature_nameAdmin, $image_base64Admin);
+        Storage::put('public/signature_loan/admin/'. $signature_nameAdmin, $image_base64Admin);
 
         // signature borrower
         $borrower_id = User::where('id', '=', $request->loan_user_id)->first();
@@ -96,7 +96,7 @@ class LoanController extends Controller
 
         $signature_nameBorrower = uniqid(). '_' . $borrower_name . '.' . $image_typeBorrower;
         
-        Storage::put('public/signature/borrower/'. $signature_nameBorrower, $image_base64Borrower);
+        Storage::put('public/signature_loan/borrower/'. $signature_nameBorrower, $image_base64Borrower);
 
 
         

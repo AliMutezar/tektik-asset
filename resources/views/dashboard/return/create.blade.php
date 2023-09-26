@@ -26,7 +26,7 @@
         <section id="multiple-column-form">
             <div class="row match-height">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12 col-md-6 order-md-1">
@@ -111,6 +111,45 @@
                                         </div>
                                     </div>
 
+                                    <div class="row my-4 p-2 d-flex justify-content-between">
+                                        <div class="col-md-5 shadow p-3 mb-3">
+                                            <label class="form-label" for="signature_loan ">Admin Signature:</label>
+                                            <br />
+                                            <div id="signAdmin" class=""
+                                                @error('signature_admin') border border-danger @enderror></div>
+                                            <br />
+                                            <button id="clearAdmin" class="btn btn-danger btn-sm">Clear
+                                                Signature</button>
+                                            <textarea id="signatureAdmin" name="signature_admin" style="display: none;"></textarea>
+
+                                            @error('signature_admin')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="col-md-5 shadow p-3 mb-3">
+                                            <label class="form-label" for="signature_returner">Returner
+                                                Signature:</label>
+                                            <br />
+                                            <div id="signBorrower"
+                                                @error('signature_admin') border border-danger @enderror></div>
+                                            <br />
+                                            <button id="clearBorrower" class="btn btn-danger btn-sm">Clear
+                                                Signature</button>
+                                            <textarea id="signatureBorrower" name="signature_returner" style="display: none;"></textarea>
+
+                                            @error('signature_admin')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+
                                     <div class="col-12 d-grid gap-2 mt-3 d-md-block mt-5">
                                         <button type="submit" class="btn btn-primary me-1">Save</button>
                                     </div>
@@ -141,5 +180,29 @@
             });
         });
     </script>     --}}
+
+    <script type="text/javascript">
+        var signAdmin = $('#signAdmin').signature({
+            syncField: '#signatureAdmin',
+            syncFormat: 'PNG'
+        });
+        $('#clearAdmin').click(function(e) {
+            e.preventDefault();
+            signAdmin.signature('clear');
+            $("#signatureAdmin").val('');
+        });
+    </script>
+
+    <script type="text/javascript">
+        var signBorrower = $('#signBorrower').signature({
+            syncField: '#signatureBorrower',
+            syncFormat: 'PNG'
+        });
+        $('#clearBorrower').click(function(e) {
+            e.preventDefault();
+            signBorrower.signature('clear');
+            $("#signatureBorrower").val('');
+        });
+    </script>
 
 @endpush
