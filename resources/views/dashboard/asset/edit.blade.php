@@ -65,10 +65,10 @@
                                             <label for="category" class="mb-2">Category</label>
                                             <div class="form-group @error('category_asset_id') is-invalid @enderror">
                                                 <select class="single-select2 form-select" name="category_asset_id">
-                                                    <option value="" disabled>Select Vendor</option>
+                                                    <option value="" disabled>Select Category</option>
 
                                                     @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ old('vendor_id', $asset->category_asset_id) == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
+                                                        <option value="{{ $category->id }}" {{ old('category_asset_id', $asset->category_asset_id) == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
                                                     @endforeach
 
                                                 </select>
