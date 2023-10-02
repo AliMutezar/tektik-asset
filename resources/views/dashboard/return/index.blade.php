@@ -72,7 +72,8 @@
                                                 <a href="" class="icon text-info me-3">
                                                     <i class="bi bi-eye" style="font-size: 1.2rem;"></i>Show
                                                 </a>
-
+                                                @can('superadmin')
+                                                
                                                 <form action="" method="POST" id="deleteForm">
                                                     @csrf
                                                     @method('DELETE')
@@ -81,6 +82,7 @@
                                                             style="font-size: 1.2rem;"></i>Delete
                                                     </a>
                                                 </form>
+                                                @endcan
                                             </div>
                                         </td>
 

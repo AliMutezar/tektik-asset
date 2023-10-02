@@ -4,7 +4,8 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ url('assets/images/logo/tektik-full.png') }}" style="height: 2.5rem; width: auto;" alt="Logo">
+                    <a href="index.html"><img src="{{ url('assets/images/logo/tektik-full.png') }}"
+                            style="height: 2.5rem; width: auto;" alt="Logo">
 
                     </a>
                 </div>
@@ -47,7 +48,7 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                @can('admin')
+                @can('superadmin')
                 <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -56,13 +57,51 @@
                 </li>
 
 
-                <li class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*') ? 'active' : '' }} has-sub">
+                <li
+                    class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Master Data</span>
                     </a>
 
-                    <ul class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*',) ? 'active' : '' }}">
+                    <ul
+                        class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*',) ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}">Employees</a>
+                        </li>
+                        <li class="submenu-item {{ request()->routeIs('division*') ? 'active' : '' }}">
+                            <i class="bi bi-building-fill-gear"></i>
+                            <a href="{{ route('divisions.index') }}">Divisions</a>
+                        </li>
+                        <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
+                            <a href="{{ route('vendors.index') }}">Vendors</a>
+                        </li>
+                        <li class="submenu-item {{ request()->routeIs('index_category*') ? 'active' : '' }}">
+                            <a href="{{ route('index_category') }}">Category Asset</a>
+                        </li>
+                        <li class="submenu-item {{ request()->routeIs('asets*') ? 'active' : '' }}">
+                            <a href="{{ route('asets.index') }}">Asset</a>
+                        </li>
+                    </ul>
+                </li>
+                @elsecan('admin')
+                <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+
+                <li
+                    class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*') ? 'active' : '' }} has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Master Data</span>
+                    </a>
+
+                    <ul
+                        class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*',) ? 'active' : '' }}">
                         <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}">Employees</a>
                         </li>
@@ -126,7 +165,8 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link' onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a href="#" class='sidebar-link'
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="bi bi-door-closed-fill"></i>
                             <span>Logout</span>
                         </a>

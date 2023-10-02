@@ -118,6 +118,14 @@
                                                     <option value="admin" {{ old('role', $user->role) == 'admin' ?
                                                         'selected' : '' }}>Admin</option>
 
+                                                    @can('superadmin')
+                                                    <option value="superadmin" {{ old('role')=='superadmin' ? 'selected'
+                                                        : '' }}>
+                                                        Super Admin</option>
+
+                                                    @endcan
+
+
                                                 </select>
                                                 @error('role')
                                                 <div class="invalid-feedback error-style"
@@ -133,11 +141,11 @@
                                             <div class="form-group @error('division_id') is-invalid @enderror">
                                                 <select class="form-select single-select2" name="division_id">
                                                     <option value="" selected @readonly(true)>Choose Division</option>
-                                                        @foreach ($divisions as $division)
-                                                        <option value="{{ $division->id }}" {{ old('division_id', $user->
-                                                            division_id) == $division->id ?
-                                                            'selected' : '' }}>{{ $division->name }}</option>
-                                                        @endforeach
+                                                    @foreach ($divisions as $division)
+                                                    <option value="{{ $division->id }}" {{ old('division_id', $user->
+                                                        division_id) == $division->id ?
+                                                        'selected' : '' }}>{{ $division->name }}</option>
+                                                    @endforeach
                                                 </select>
 
                                                 @error('division_id')
@@ -182,7 +190,8 @@
 
                                         <div class="col-md-6 col-12 mt-3">
                                             <div class="form-group">
-                                                <label for="password_confirmation" class="mb-2">Password Confirmation</label>
+                                                <label for="password_confirmation" class="mb-2">Password
+                                                    Confirmation</label>
                                                 <input type="password"
                                                     class="form-control form-control-lg @error('password_confirmation') is-invalid @enderror"
                                                     name="password_confirmation" placeholder="Password Confirmation">
@@ -212,6 +221,6 @@
 </div>
 
 @push('after-script')
-    @include('includes.select2')
+@include('includes.select2')
 @endpush
 @endsection

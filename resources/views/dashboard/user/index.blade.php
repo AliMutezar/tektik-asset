@@ -56,12 +56,22 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->nik }}</td>
                                 <td>{{ $user->division ? $user->division->name : 'No Division' }}</td>
-                                <td>{{ $user->role }}</td>
+                                <td>
+                                    @if ($user->role == 'admin')
+                                    <span class="badge bg-warning">Admin</span>
+                                    @elseif ($user->role == 'superadmin')
+                                    <span class="badge bg-primary">Super Admin</span>
+                                    @else
+                                    <span class="badge bg-secondary">Staff</span>
+                                    @endif
+                                </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>
                                     <div class="d-flex">
+                                        @if (auth()->user()->role == 'superadmin')
+                                        @if($user->id != auth()->user()->id)
                                         <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="icon me-3"><i
                                                 class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
                                         <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST"
@@ -73,6 +83,23 @@
                                                 onclick="confirmDelete(event, '{{ $user->id }}')"><i class="bi bi-x"
                                                     style="font-size: 1.2rem;"></i></a>
                                         </form>
+                                        @endif
+                                        @elseif(auth()->user()->role == 'admin')
+                                        @if ($user->role == 'staff' || $user->role == 'admin')
+                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="icon me-3"><i
+                                            class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
+                                        <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST"
+                                            id="deleteForm{{ $user->id }}">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <a href="#" class="icon text-danger"
+                                                onclick="confirmDelete(event, '{{ $user->id }}')"><i class="bi bi-x"
+                                                    style="font-size: 1.2rem;"></i></a>
+                                        </form>
+                                        @endif
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>

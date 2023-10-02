@@ -65,8 +65,8 @@
 
                                 <td class="text-center">
                                     <a href="#" class="icon text-info" data-bs-toggle="modal"
-                                        data-bs-target="#galleryModal{{ $loan->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="See Photo">
+                                        data-bs-target="#galleryModal{{ $loan->id }}" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="See Photo">
                                         <i class="bi bi-camera-fill" style="font-size: 1.2rem;"></i>
                                     </a>
                                 </td>
@@ -82,27 +82,33 @@
                                 </td>
                                 <td class="text-center">
                                     @if ($loan->return_code !== null)
-                                        <span class="badge bg-light-success">{{ $loan->return_code }}</span>
+                                    <span class="badge bg-light-success">{{ $loan->return_code }}</span>
                                     @else
-                                        <span class="badge bg-light-danger">Empty</span>
+                                    <span class="badge bg-light-danger">Empty</span>
                                     @endif
                                 </td>
 
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('loans.show', ['loan' => $loan->id]) }}" class="icon text-info me-3">
+                                        <a href="{{ route('loans.show', ['loan' => $loan->id]) }}"
+                                            class="icon text-info me-3">
                                             <i class="bi bi-eye" style="font-size: 1.2rem;"></i>Show
                                         </a>
-
+                                        @can('superadmin')
                                         <form action="{{ route('loans.destroy', $loan->id) }}" method="POST"
                                             id="deleteForm{{ $loan->id }}">
                                             @csrf
                                             @method('DELETE')
+
                                             <a href="#" class="icon text-danger"
                                                 onclick="confirmDeleteLoan(event, '{{ $loan->id }}')"><i class="bi bi-x"
                                                     style="font-size: 1.2rem;"></i>Delete
                                             </a>
                                         </form>
+                                        @endcan
+                                        
+
+
                                     </div>
                                 </td>
 
@@ -112,7 +118,8 @@
                                         role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="galleryModalTitle{{ $loan->id }}">Bukti Pinjaman</h5>
+                                                <h5 class="modal-title" id="galleryModalTitle{{ $loan->id }}">Bukti
+                                                    Pinjaman</h5>
                                                 <button type="button" class="close" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
@@ -120,7 +127,8 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <img class="d-block w-100" src="{{ asset('storage/photo_receipt/' . $loan->photo_receipt ) }}">
+                                                <img class="d-block w-100"
+                                                    src="{{ asset('storage/photo_receipt/' . $loan->photo_receipt ) }}">
                                             </div>
 
                                             <div class="modal-footer">
