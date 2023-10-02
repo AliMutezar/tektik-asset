@@ -91,11 +91,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4>Trend</h4>
-                                </div>
                                 <div class="card-body">
-                                    <div id="chart-profile-visit"></div>
+                                    <div class="row">
+                                        {!! $chart->container() !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -106,4 +105,10 @@
 
         @include('includes.footer')
     </div>
+
+    @push('after-script')
+    <script src="{{ $chart->cdn() }}"></script>
+
+    {{ $chart->script() }}
+    @endpush
 @endsection

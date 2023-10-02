@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Charts\DivisionAssetChart;
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use App\Models\AssetLoan;
@@ -12,15 +13,16 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(DivisionAssetChart $divisionAssetChart)
     {
         $assets = Asset::all();
         $total_asset = Asset::sum('stock_unit');
         $total_vendor = Vendor::count();
         $total_loan = AssetLoan::count();
         $total_return = AssetReturn::count();
+        $chart = $divisionAssetChart->build();
         return view('dashboard', compact(
-            'assets', 'total_asset', 'total_vendor', 'total_loan', 'total_return'
+            'assets', 'total_asset', 'total_vendor', 'total_loan', 'total_return', 'chart'
         ));
     }
 }
