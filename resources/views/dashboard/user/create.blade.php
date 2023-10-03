@@ -118,6 +118,12 @@
                                                             {{ old('role') == 'admin' ? 'selected' : '' }}>
                                                             Admin</option>
 
+                                                        @can('superadmin')
+                                                        <option value="admin"
+                                                            {{ old('role') == 'superadmin' ? 'selected' : '' }}>
+                                                            Super Admin</option>
+                                                        @endcan
+
                                                     </select>
                                                     @error('role')
                                                         <div class="invalid-feedback error-style"

@@ -47,7 +47,8 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                @can('admin')
+                @if(auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin')
+                    
                 <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -81,7 +82,7 @@
                         </li>
                     </ul>
                 </li>
-                @endcan
+                @endif
 
                 <li class="sidebar-item {{ request()->routeIs('loans*', 'returns*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>

@@ -127,28 +127,6 @@
                                         </div>
 
                                         <div class="col-md-6 col-12 mt-3">
-                                            <label for="role" class="mb-2">Role User</label>
-                                            <div class="form-group @error('role') is-invalid @enderror">
-                                                <select class="choices role form-select" name="role">
-                                                    <option value="" selected disabled>Choose Role</option>
-
-                                                    <option value="staff" {{ old('role', $user->role) == 'staff' ?
-                                                        'selected' : '' }}>Staff</option>
-
-                                                    <option value="admin" {{ old('role', $user->role) == 'admin' ?
-                                                        'selected' : '' }}>Admin</option>
-
-                                                </select>
-                                                @error('role')
-                                                <div class="invalid-feedback error-style"
-                                                    style="display:block; margin-top:-1.25rem;">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>
                                             <div class="form-group @error('division_id') is-invalid @enderror">
                                                 <select class="choices form-select" name="division_id">
