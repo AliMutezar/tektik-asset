@@ -48,7 +48,8 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                @can('superadmin')
+                @if(auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin')
+                    
                 <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -84,43 +85,7 @@
                         </li>
                     </ul>
                 </li>
-                @elsecan('admin')
-                <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-
-
-                <li
-                    class="sidebar-item {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*') ? 'active' : '' }} has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Master Data</span>
-                    </a>
-
-                    <ul
-                        class="submenu {{ request()->routeIs('division*', 'user*', 'vendor*', 'index_category*', 'asets*',) ? 'active' : '' }}">
-                        <li class="submenu-item {{ request()->routeIs('user*') ? 'active' : '' }}">
-                            <a href="{{ route('users.index') }}">Employees</a>
-                        </li>
-                        <li class="submenu-item {{ request()->routeIs('division*') ? 'active' : '' }}">
-                            <i class="bi bi-building-fill-gear"></i>
-                            <a href="{{ route('divisions.index') }}">Divisions</a>
-                        </li>
-                        <li class="submenu-item {{ request()->routeIs('vendor*') ? 'active' : '' }}">
-                            <a href="{{ route('vendors.index') }}">Vendors</a>
-                        </li>
-                        <li class="submenu-item {{ request()->routeIs('index_category*') ? 'active' : '' }}">
-                            <a href="{{ route('index_category') }}">Category Asset</a>
-                        </li>
-                        <li class="submenu-item {{ request()->routeIs('asets*') ? 'active' : '' }}">
-                            <a href="{{ route('asets.index') }}">Asset</a>
-                        </li>
-                    </ul>
-                </li>
-                @endcan
+                @endif
 
                 <li class="sidebar-item {{ request()->routeIs('loans*', 'returns*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>

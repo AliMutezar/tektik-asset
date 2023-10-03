@@ -117,6 +117,11 @@
 
                                                     <option value="admin" {{ old('role', $user->role) == 'admin' ?
                                                         'selected' : '' }}>Admin</option>
+                                                     @can('superadmin')
+                                                     <option value="admin" {{ old('role', $user->role) == 'superadmin' ?
+                                                        'selected' : '' }}>Super Admin</option>
+                                                        
+                                                     @endcan   
 
                                                     @can('superadmin')
                                                     <option value="superadmin" {{ old('role')=='superadmin' ? 'selected'

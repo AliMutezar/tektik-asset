@@ -112,25 +112,25 @@
                                                     <option value="staff" {{ old('role')=='staff' ? 'selected' : '' }}>
                                                         Staff</option>
 
-                                                    <option value="admin" {{ old('role')=='admin' ? 'selected' : '' }}>
-                                                        Admin</option>
-                                                    
-                                                   @can('superadmin')
-                                                   <option value="superadmin" {{ old('role')=='superadmin' ? 'selected' : '' }}>
-                                                       Super Admin</option>
-                                                    
-                                                   @endcan
-                                                    
+                                                        <option value="admin"
+                                                            {{ old('role') == 'admin' ? 'selected' : '' }}>
+                                                            Admin</option>
 
-                                                </select>
-                                                @error('role')
-                                                <div class="invalid-feedback error-style"
-                                                    style="display:block; margin-top:-1.25rem;">
-                                                    {{ $message }}
+                                                        @can('superadmin')
+                                                        <option value="admin"
+                                                            {{ old('role') == 'superadmin' ? 'selected' : '' }}>
+                                                            Super Admin</option>
+                                                        @endcan
+
+                                                    </select>
+                                                    @error('role')
+                                                        <div class="invalid-feedback error-style"
+                                                            style="display:block; margin-top:-1.25rem;">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                                                @enderror
                                             </div>
-                                        </div>
 
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>

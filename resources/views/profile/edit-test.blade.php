@@ -126,8 +126,6 @@
                                             </div>
                                         </div>
 
-                                        
-
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>
                                             <div class="form-group @error('division_id') is-invalid @enderror">

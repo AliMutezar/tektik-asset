@@ -31,7 +31,6 @@ Route::get('/', function () {
     return Redirect::route('dashboard');
 });
 
-
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
@@ -48,8 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('divisions', DivisionController::class);
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
-    Route::resource('loans', LoanController::class);
     Route::resource('asets', AssetController::class);
+    Route::resource('loans', LoanController::class);
     Route::resource('returns', ReturnController::class);
 
     //category
@@ -57,15 +56,16 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/category', [CategoryAssetController::class, 'store'])->name('store_category');
     Route::put('/category/{id}', [CategoryAssetController::class, 'update'])->name('update_category');
     Route::delete('/category/{id}', [CategoryAssetController::class, 'destroy'])->name('delete_category');
-})->middleware('role:superadmin');
-
+})->middleware(['role:superadmin']);
 
 Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('divisions', DivisionController::class);
     Route::resource('users', UserController::class);
     Route::resource('vendors', VendorController::class);
     Route::resource('loans', LoanController::class)->except(['edit', 'destroy']);
     Route::resource('asets', AssetController::class);
+    Route::resource('loans', LoanController::class)->except(['edit', 'destroy']);
     Route::resource('returns', ReturnController::class)->except(['edit', 'destroy']);
 
     //category
@@ -73,7 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/category', [CategoryAssetController::class, 'store'])->name('store_category');
     Route::put('/category/{id}', [CategoryAssetController::class, 'update'])->name('update_category');
     Route::delete('/category/{id}', [CategoryAssetController::class, 'destroy'])->name('delete_category');
-})->middleware('role:admin');
+})->middleware(['role:admin']);
 
 // Indonesia location
 Route::get('/cities/{province}', [getGeoController::class, 'getCityByProvince']);
