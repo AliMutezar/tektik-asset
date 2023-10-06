@@ -45,6 +45,7 @@
                                     <th>Return Code</th>
                                     <th>Loan Code</th>
                                     <th>Borrower</th>
+                                    <th>Borrower Division</th>
                                     <th>Date Returned</th>
                                     <th class="text-center">Photo</th>
                                     <th class="text-center">Action</th>
@@ -57,6 +58,7 @@
                                         <td>{{ $return->return_code }}</td>
                                         <td>{{ $return->loan->loan_code }}</td>
                                         <td>{{ $return->loan->user->name }}</td>
+                                        <td class="text-center">{{ $return->loan->user->division->name}}</td>
                                         <td>{{ $return->date_returned }}</td>
 
                                         <td class="text-center">
