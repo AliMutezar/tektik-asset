@@ -113,7 +113,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="{{ route('update.password')}}" class='sidebar-link'>
+                    <a href="{{ route('update.password')}}" class='sidebar-link' onclick="hideSidebar()">
                         <i class="bi bi-key-fill"></i>
                         <span>Change Password</span>
                     </a>
@@ -121,12 +121,13 @@
 
                 <li class="sidebar-title">Support</li>
 
-                <li class="sidebar-item  ">
-                    <a href="https://zuramai.github.io/mazer/docs" class='sidebar-link'>
+                <li class="sidebar-item {{ request()->routeIs('contact-team') ? 'active' : '' }} ">
+                    <a href="{{ route('contact-team')}}" class='sidebar-link'>
                         <i class="bi bi-telephone-fill"></i>
                         <span>Contact our team</span>
                     </a>
                 </li>
+
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <li class="sidebar-item  ">
@@ -141,3 +142,4 @@
         </div>
     </div>
 </div>
+

@@ -116,7 +116,7 @@
                                                 <input type="text"
                                                     class="form-control form-control-lg @error('position') is-invalid @enderror"
                                                     placeholder="Your Position" name="position"
-                                                    value="{{ old('position', $user->position ?? '') }}">
+                                                    value="{{ old('position', $user->position ?? '') }}" {{ auth()->user()->role == 'staff' ? 'disabled' : ''}}>
 
                                                 @error('position')
                                                 <div class="invalid-feedback">
@@ -129,13 +129,13 @@
                                         <div class="col-md-6 col-12 mt-3">
                                             <label for="division_id" class="mb-2">Division</label>
                                             <div class="form-group @error('division_id') is-invalid @enderror">
-                                                <select class="choices form-select" name="division_id">
+                                                <select class="single-select2 form-select" name="division_id" {{auth()->user()->role == 'staff' ? 'disabled' : ''}}>
                                                     <option value="" selected @readonly(true)>Choose Division</option>
 
                                                     @foreach ($division as $division)
-                                                    <option value="{{ $division->id }}" {{ old('division_id', $user->
-                                                        division_id) == $division->id ?
-                                                        'selected' : '' }}>{{ $division->name }}</option>
+                                                        <option value="{{ $division->id }}" {{ old('division_id', $user->
+                                                            division_id) == $division->id ?
+                                                            'selected' : '' }}>{{ $division->name }}</option>
                                                     @endforeach
                                                 </select>
 
@@ -201,4 +201,8 @@
 
     @include('includes.footer')
 </div>
+
+    @push('after-script')
+        @include('includes.select2')
+    @endpush
 @endsection

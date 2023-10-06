@@ -44,9 +44,9 @@ class Loan extends Model
         return $this->hasOne(AssetReturn::class);
     }
 
-    public function signature($request, $fileName, $path) 
+    public function signature($imageData, $fileName, $path) 
     {
-        $image_parts = explode(";base64,", $request);
+        $image_parts = explode(";base64,", $imageData);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
 
@@ -57,9 +57,9 @@ class Loan extends Model
         Storage::put($path . $fileName, $image_base64);
 
         return [
-            'request' => $request,
-            'file_name' => $fileName,
-            'file_path' => $path . $fileName,
+            'request' => $imageData,
+            'fileName' => $fileName,
+            'filePath' => $path,
         ];
     }
 }

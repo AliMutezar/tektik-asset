@@ -8,12 +8,14 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\Division;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */

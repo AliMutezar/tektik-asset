@@ -31,6 +31,8 @@ class LoanController extends Controller
      */
     public function create()
     {
+        // $role = Auth::user()->role;
+        // dd($role);
         $assets = Asset::with('vendor')->where('stock_unit', '>', 0)->get();
         $users = User::where('role', 'staff')->get();
         return view('dashboard.loan.create', compact('assets', 'users'));
@@ -98,20 +100,6 @@ class LoanController extends Controller
         
         Storage::put('public/signature_loan/borrower/'. $signature_nameBorrower, $image_base64Borrower);
 
-
-        
-
-        // if ($request->hasFile('signature_loan')) {
-        //      $signatureData = $request->input('signature_loan');
-
-        //      $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-        //      $signatureData = str_replace(' ', '+', $signatureData);
-        //      $signatureImage = base64_decode($signatureData);
-
-        //      $loan = new Loan();
-        //      $loan->signature_loan = $signatureImage;
-        //      $loan->save();
-        // }
         $data['signature_admin'] = $signature_nameAdmin;
         $data['signature_borrower'] = $signature_nameBorrower;     
         $data['photo_receipt'] = $photo_name;
@@ -120,18 +108,6 @@ class LoanController extends Controller
         $data['return_code'] = null;
 
         $loan = loan::create($data);
-
-        //     [
-        //     'loan_code' => $request->loan_code,
-        //     'loan_user_id' => $request->loan_user_id,
-        //     'admin_user_id' => Auth::user()->id,
-        //     'date_receipt' => $request->date_receipt,
-        //     'signature_admin' => null,
-        //     'status' => 0,
-        //     'return_code' => null,
-        //     'photo_receipt' => $request->photo_receipt
-        // ]
-
 
 
         foreach ($assetsIds as $index => $assetsId) {
@@ -188,6 +164,12 @@ class LoanController extends Controller
      */
     public function destroy(Loan $loan)
     {
+        $role = Auth::user()->role;
+        // dd($role);
+        if ($role) {
+            return redirect()->route('loans.index')->with('error', 'You dont have permission for deleting loan data');
+        }
+
         $loanId = $loan->id;
         $assetLoanData = AssetLoan::where('loan_id', $loanId)->get();
 

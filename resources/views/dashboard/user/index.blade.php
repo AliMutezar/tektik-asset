@@ -85,7 +85,7 @@
                                             </form>
                                             @endif
                                         @elseif (auth()->user()->role == 'admin')
-                                            @if($user->role == 'staff' || $user->role == 'admin')
+                                            @if($user->role == 'staff')
                                             <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="icon me-3"><i
                                                 class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i></a>
                                             <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST"

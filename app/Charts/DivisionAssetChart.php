@@ -39,22 +39,23 @@ class DivisionAssetChart
         $xAxisLabel = $assetLoanDivision->keys()->toArray();
         $title = 'Asset Per Divison';
 
-        $assets = Asset::with('categoryAsset')->get();
-        // $title = 'Stock Asset by Category';
+        // $assets = Asset::with('categoryAsset')->get();
+        // // $title = 'Stock Asset by Category';
 
-        // Mengelompokkan data aset berdasarkan kategori
-        $assetsByCategory = $assets->groupBy('categoryAsset.name');
+        // // Mengelompokkan data aset berdasarkan kategori
+        // $assetsByCategory = $assets->groupBy('categoryAsset.name');
 
-        // Menghitung total stok untuk setiap kategori
-        $stockData = $assetsByCategory->map(function ($assets) {
-            return $assets->sum('stock_unit');
-        });
+        // // Menghitung total stok untuk setiap kategori
+        // $stockData = $assetsByCategory->map(function ($assets) {
+        //     return $assets->sum('stock_unit');
+        // });
 
-        $xAxisLabels = $stockData->keys()->toArray();
+        // $xAxisLabels = $stockData->keys()->toArray();
 
         return $this->chart->barChart()
             ->setTitle($title)
-            ->setXAxis($xAxisLabel)
-            ->addData('Loans', $assetLoanDivision->values()->toArray());
+            ->addData('Loans', $assetLoanDivision->values()->toArray())
+            ->setLabels($xAxisLabel);
+            
     }
 }
