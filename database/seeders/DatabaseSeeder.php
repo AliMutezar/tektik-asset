@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
             CitiesSeeder::class,
             DistrictsSeeder::class,
             VillagesSeeder::class,
-            DivisionSeeder::class,
-            VendorSeeder::class,
-            UserSeeder::class,
-            AssetSeeder::class,
+            // DivisionSeeder::class,
+            // VendorSeeder::class,
+            // UserSeeder::class,
+            // AssetSeeder::class,
             // LoanSeeder::class,
             // AssetLoanSeeder::class
         ]);
