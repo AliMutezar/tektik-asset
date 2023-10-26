@@ -63,9 +63,9 @@ Route::middleware(['auth', 'verified',])->group(function() {
 
 
 // Indonesia location
-Route::get('/cities/{province}', [getGeoController::class, 'getCityByProvince']);
-Route::get('/districts/{city}', [getGeoController::class, 'getDistrictByCity']);
-Route::get('/villages/{district}', [getGeoController::class, 'getVillageByDistrict']);
+Route::get('/cities/{province}', [getGeoController::class, 'getCityByProvince'])->name('getCities');
+Route::get('/districts/{city}', [getGeoController::class, 'getDistrictByCity'])->name('getDistrict');
+Route::get('/villages/{district}', [getGeoController::class, 'getVillageByDistrict'])->name('getVillages');
 
 
 require __DIR__.'/auth.php';

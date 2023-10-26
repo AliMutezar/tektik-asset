@@ -4,7 +4,7 @@
         const code = province.value;
         $.ajax({
             type: 'GET',
-            url: '{{ url('cities') }}/' + code,
+            url: '{{ secure_url('cities') }}/' + code,
             data: {
                 province_code: code
             },
@@ -27,7 +27,7 @@
         const cityCode = city.value;
         $.ajax({
             type: 'GET',
-            url: '{{ url('districts') }}/' + cityCode,
+            url: '{{ secure_url('districts') }}/' + cityCode,
             data: {
                 city_code: cityCode
             },
@@ -52,7 +52,7 @@
         const districtCode = district.value;
         $.ajax({
             type: 'GET',
-            url: '{{ url('villages') }}/' + districtCode,
+            url: '{{ secure_url('villages') }}/' + districtCode,
             data: {
                 district_code: districtCode
             },
