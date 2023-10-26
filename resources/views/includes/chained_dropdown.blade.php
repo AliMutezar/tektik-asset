@@ -1,6 +1,5 @@
 <script>
     function getCities(province) {
-        console.log('getCities');
         const code = province.value;
         $.ajax({
             type: 'GET',
@@ -9,7 +8,6 @@
                 province_code: code
             },
             success: function(response) {
-                console.log(response);
                 $('#city').empty();
 
                 for (i = 0; i < response.length; i++) {
@@ -23,7 +21,6 @@
     }
 
     function getDistrict(city) {
-        console.log('getDistrict');
         const cityCode = city.value;
         $.ajax({
             type: 'GET',
@@ -32,7 +29,6 @@
                 city_code: cityCode
             },
             success: function(response) {
-                console.log(response);
 
                 $('#district').empty();
 
@@ -48,7 +44,6 @@
     }
 
     function getVillage(district) {
-        console.log('getVillage');
         const districtCode = district.value;
         $.ajax({
             type: 'GET',
@@ -57,7 +52,6 @@
                 district_code: districtCode
             },
             success: function(response) {
-                console.log(response);
 
                 $('#village').empty();
 
