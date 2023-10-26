@@ -91,7 +91,7 @@
                 language: {
                     processing: '<img src="assets/images/svg-loaders/puff.svg" class="me-4" style="width: 3rem" alt="audio">'
                 },
-                ajax: '{{ route('asets.index') }}',
+                ajax: '{{ url()->current() }}',
 
                 // menambahkan kolom sesuai dengan kolom tabel, dan eberapa kolom seperti no, condition, price di custom
                 columns: [{

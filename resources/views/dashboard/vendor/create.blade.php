@@ -152,7 +152,7 @@
                                                 <label for="cities" class="mb-2">City</label>
                                                 <div class="form-group @error('city_code') is-invalid @enderror">
                                                     <select class="form-select form-select-md single-select2" name="city_code"
-                                                        id="city" onchange="getDistrict(this)"
+                                                        id="city" disabled onchange="getDistrict(this)"
                                                         data-placeholder="Select City">
 
                                                         <option value="" selected @readonly(true)>
@@ -176,7 +176,7 @@
                                                 <label for="cities" class="mb-2">District</label>
                                                 <fieldset class="form-group @error('district_code') is-invalid @enderror">
                                                     <select class="form-select form-select-md single-select2"
-                                                        name="district_code" id="district" onchange="getVillage(this)"
+                                                        name="district_code" id="district" disabled onchange="getVillage(this)"
                                                         data-placeholder="Select Disrict">
 
                                                         <option value="">{{ __('Select District') }}</option>
@@ -198,7 +198,7 @@
                                                 <label for="cities" class="mb-2">Village</label>
                                                 <div class="form-group @error('village_code') is-invalid @enderror">
                                                     <select class="form-select form-select-md single-select2" name="village_code"
-                                                        id="village" data-placeholder="Select Village">
+                                                        id="village" data-placeholder="Select Village" disabled>
 
                                                         <option value="">{{ __('Select Village') }}</option>
 

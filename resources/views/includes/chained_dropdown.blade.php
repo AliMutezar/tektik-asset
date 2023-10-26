@@ -15,6 +15,8 @@
                         '</option>');
                 }
 
+                $('#city').prop('disabled', false);
+
                 $('#city').trigger('change');
             }
         });
@@ -30,13 +32,17 @@
             },
             success: function(response) {
 
+
                 $('#district').empty();
+
+            
 
                 for (i = 0; i < response.length; i++) {
                     $('#district').append('<option value="' + response[i].code + '">' + response[i].name +
                         '</option>');
                 }
 
+                $('#district').prop('disabled', false);
                 $('#district').trigger('change');
             }
 
@@ -59,7 +65,7 @@
                     $('#village').append('<option value="' + response[i].code + '">' + response[i].name +
                         '</option>');
                 }
-
+                $('#village').prop('disabled', false);
                 $('#village').trigger('change');
             }
         });
