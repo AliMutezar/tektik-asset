@@ -66,7 +66,52 @@
         });
     }
 
-    function confirmDeleteLoan(event, dataId) {
+    function confirmDeleteLoan(e) {
+        let id = e.getAttribute('data-id');
+        
+        Swal.fire({
+            title: 'Want to delete this data?',
+            text: "All stock items related to this loan will be returned and return code for this loan will also deleted",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#fff',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Yes, delete it!',
+            customClass : {
+                confirmButton : 'swall-confirm-button'
+            }
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'Delete',
+                url: '/loans/' + id,
+                dataType: "json",
+                success:function(response){
+                    Swal.fire({
+                        toast: true,
+                        title : 'Yeay!',
+                        text : response.message,
+                        icon : 'success',
+                        position : 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1000
+                    }).then((result) => {
+                        window.location.href = '/loans';
+                    })
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert(xhr. status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+            }
+        });
+    }
+
+    function confirmDeleteReturn(event, dataId) {
         event.preventDefault();
         
         Swal.fire({

@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified',])->group(function() {
     Route::resource('vendors', VendorController::class);
     Route::resource('asets', AssetController::class);
     Route::resource('loans', LoanController::class);
+    Route::get('/getLoans', [LoanController::class, 'getDataLoans']);
     Route::resource('returns', ReturnController::class);
 
     //category

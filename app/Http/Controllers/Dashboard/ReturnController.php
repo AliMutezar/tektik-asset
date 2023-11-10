@@ -141,6 +141,6 @@ class ReturnController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
